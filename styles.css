@@ -38,7 +38,7 @@ select, button {
     box-shadow: none;
 }
 
-input[type="text"] {
+#answer {
     width: 50%; /* Reduced width */
     padding: 10px;
     font-size: 2em; /* Increased font size */
