@@ -1,0 +1,103 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+#game {
+    display: none;
+}
+h1, h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+label {
+    font-size: 1.8em;
+    color: #555;
+}
+
+select, button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1.5em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    outline: none;
+    box-shadow: none;
+}
+
+input[type="text"] {
+    width: 50%; /* Reduced width */
+    padding: 10px;
+    font-size: 2em; /* Increased font size */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px auto; /* Centering the input field */
+    display: block; /* Making sure it takes up its own line */
+    outline: none;
+    box-shadow: none;
+}
+
+.checkboxLabel { 
+    width: 15%;
+    display: inline-table;
+}
+
+input[type="checkbox"] {
+    vertical-align: middle;
+
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(2.5); /* IE */
+    -moz-transform: scale(2.5); /* FF */
+    -webkit-transform: scale(2.5); /* Safari and Chrome */
+    -o-transform: scale(2.5); /* Opera */
+    transform: scale(2.5);
+    padding: 10px;
+}
+
+button {
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#feedback {
+    font-size: 3em;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#question {
+    font-size: 4em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+#backLink {
+    font-size: 1.2em;
+    color: #3498db;
+    text-decoration: none;
+    margin-bottom: 20px;
+    display: block;
+}
+
+#backLink:hover {
+    text-decoration: underline;
+}

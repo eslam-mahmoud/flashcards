@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards Game</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="settings" class="container">
+        <h2>Flash Cards</h2>
+        
+        <label>
+            Operation:
+            <br/>
+            <label class="checkboxLabel"><input type="checkbox" class="operation" value="+" checked> +</label>
+            <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> -</label>
+            <label class="checkboxLabel"><input type="checkbox" class="operation" value="*"> x</label>
+            <label class="checkboxLabel"><input type="checkbox" class="operation" value="/"> ÷</label>
+        </label>
+        <br><br>
+
+        <label>
+            Main Numbers:
+            <br/>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="0"> 0 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="1"> 1 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="2"> 2 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="3"> 3 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="4"> 4 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="5"> 5 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="6"> 6 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="7"> 7 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="8"> 8 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="9"> 9 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="10"> 10 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="11"> 11 </label>
+            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="12"> 12 </label>
+        </label>
+        <br><br>
+
+        <label>
+            Max Number:
+            <select id="maxNumber"></select>
+        </label>
+        <br><br>
+
+        <button id="startButton">Start</button>
+    </div>
+
+    <div id="game" class="container">
+        <a href="#" id="backLink">Back</a>
+        <h1 id="question"></h1>
+        <input type="text" id="answer">
+        <br/>
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
+        <p id="feedback"></p>
+    </div>
+</body>
+</html>
