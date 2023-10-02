@@ -1,18 +1,28 @@
 let currentAnswer;
+let correctAnswers = 0;
+let totalQuestions = 0;
 let lastQuestion = {
     operation: null,
     mainNumber: null,
     randomNum: null
 };
 
+// Update the score display
+function updateScore() {
+    console.log(`${lastQuestion.mainNumber} ${lastQuestion.operation} ${lastQuestion.randomNum} = ${parseFloat($("#answer").val())}, Score: ${correctAnswers}/${totalQuestions}`);
+}
+
 function checkAnswer() {
     const userAnswer = parseFloat($("#answer").val());
 
     if (userAnswer === currentAnswer) {
         $("#feedback").text("Correct!").css("color", "green");
+        correctAnswers++;
     } else {
         $("#feedback").text(`Wrong! The correct answer is ${currentAnswer}.`).css("color", "red");
     }
+    totalQuestions++;
+    updateScore();
 
     $("#newQuestion").show();
     $("#feedback").show();
@@ -120,6 +130,11 @@ $(document).ready(function() {
 
     $("#backLink").on("click", function(e) {
         e.preventDefault();
+
+        correctAnswers = 0;
+        totalQuestions = 0;
+        updateScore();
+
         $("#settings").show();
         $("#game").hide();
         $("#question, #answer, #submitAnswer, #feedback, #newQuestion").hide();

@@ -51,7 +51,7 @@ select, button {
 }
 
 .checkboxLabel { 
-    width: 15%;
+    width: 50px;
     display: inline-table;
 }
 
@@ -100,4 +100,15 @@ button:hover {
 
 #backLink:hover {
     text-decoration: underline;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+#backLink, #score {
+    margin: 0;
+    padding: 0;
 }
