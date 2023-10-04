@@ -18,7 +18,13 @@ function checkAnswer() {
 
     if (userAnswer === currentAnswer) {
         $("#feedback").text("Correct!").css("color", "green");
+        $("#submitAnswer").hide();
         correctAnswers++;
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
     } else {
         $("#feedback").text(`Wrong! The correct answer is ${currentAnswer}.`).css("color", "red");
     }
@@ -27,7 +33,6 @@ function checkAnswer() {
 
     $("#newQuestion").show();
     $("#newQuestion").focus();
-    $("#submitAnswer").hide();
     $("#feedback").show();
 }
 
