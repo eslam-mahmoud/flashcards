@@ -9,6 +9,7 @@ let lastQuestion = {
 
 // Update the score display
 function updateScore() {
+    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
     console.log(`${lastQuestion.mainNumber} ${lastQuestion.operation} ${lastQuestion.randomNum} = ${parseFloat($("#answer").val())}, Score: ${correctAnswers}/${totalQuestions}`);
 }
 
@@ -25,6 +26,8 @@ function checkAnswer() {
     updateScore();
 
     $("#newQuestion").show();
+    $("#newQuestion").focus();
+    $("#submitAnswer").hide();
     $("#feedback").show();
 }
 
@@ -93,6 +96,7 @@ function generateQuestion() {
     // Display game elements and hide settings
     $("#question, #answer, #submitAnswer").show();
     $("#newQuestion").hide();
+    $("#submitAnswer").show();
     $("#feedback").text("");
     $("#answer").focus();
 }
