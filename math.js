@@ -17,7 +17,7 @@ function checkAnswer() {
     const userAnswer = parseFloat($("#answer").val());
 
     if (userAnswer === currentAnswer) {
-        $("#feedback").text("Correct!").css("color", "green");
+        $("#feedback").text("Correct 👍").css("color", "green");
         $("#submitAnswer").hide();
         correctAnswers++;
         confetti({

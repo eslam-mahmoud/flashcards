@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputMinute = parseInt(document.getElementById('minuteInput').value, 10);
         
         if (inputHour === currentHour && inputMinute === currentMinute) {
-            feedback.textContent = "Correct!";
+            feedback.textContent = "Correct 👍";
             feedback.style.color = "green";
 
             // Confetti effect
