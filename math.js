@@ -108,7 +108,7 @@ function generateQuestion() {
 
 function populateMaxNumbers() {
     for (let i = 1; i <= 100; i++) {
-        $('#maxNumber').append(`<option value="${i}">${i}</option>`);
+        $('#maxNumber').append(`<option value="${i}" ${i==10?'selected="selected"':''}>${i}</option>`);
     }
 }
 
