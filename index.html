@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Activity</title>
+    <title>Learning Practice</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
@@ -12,9 +12,9 @@
         <h1>🎉 Welcome to Learning Activities 🎉</h1>
         <p>Select an activity to start:</p>
         <div class="activity-buttons">
-            <a href="math.html" class="activity-btn math-btn">✖️ Math Challenge</a>
+            <a href="math.html" class="activity-btn math-btn">✖️ Math</a>
             <br>
-            <a href="clock.html" class="activity-btn clock-btn">🕰️ Time Quest</a>
+            <a href="clock.html" class="activity-btn clock-btn">🕰️ Clock</a>
         </div>
     </div>
 
@@ -22,13 +22,13 @@
         $(".math-btn").hover(function() {
             $(this).text("➕➖➗ Let's do Math ➗➖➕");
         }, function() {
-            $(this).text("✖️ Math Challenge");
+            $(this).text("✖️ Math");
         });
 
         $(".clock-btn").hover(function() {
             $(this).text("⏰ Time to Learn the Clock ⏰");
         }, function() {
-            $(this).text("🕰️ Time Quest");
+            $(this).text("🕰️ Clock ");
         });
     </script>
 </body>
