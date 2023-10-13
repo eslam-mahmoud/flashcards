@@ -237,7 +237,7 @@ input[type="number"] {
 
 /* Universal styles */
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif; /* A playful font */
+    font-family: 'Comic Sans MS', sans-serif; /* A playful font */
     background-color: #FFDAB9; /* Peachy background color */
     color: #333;
     margin: 0;
