@@ -137,7 +137,7 @@ $(document).ready(function() {
         generateQuestion();
     });
 
-    $("#backLink").on("click", function(e) {
+    $("#game .backLink").on("click", function(e) {
         e.preventDefault();
 
         correctAnswers = 0;

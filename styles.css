@@ -90,7 +90,7 @@ button:hover {
     text-align: center;
 }
 
-#backLink {
+.backLink {
     font-size: 1.2em;
     color: #3498db;
     text-decoration: none;
@@ -98,7 +98,7 @@ button:hover {
     display: block;
 }
 
-#backLink:hover {
+.backLink:hover {
     text-decoration: underline;
 }
 .header {
@@ -108,7 +108,128 @@ button:hover {
     width: 100%;
 }
 
-#backLink, #score {
+.backLink, #score {
     margin: 0;
     padding: 0;
+}
+
+
+
+/* ----------- clock -------------- */
+
+.clock {
+    width: 200px;
+    height: 200px;
+    border: 5px solid black;
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    background-image: url('clock.png') !important;
+    background-size: contain;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: rotate(0deg);
+    z-index: 1;
+}
+
+.hour {
+    width: 6px;
+    height: 50px;
+    background: black;
+    margin-left: -3px;
+}
+
+.minute {
+    width: 4px;
+    height: 90px;
+    background: blue;
+    margin-left: -2px;
+}
+
+.center-point {
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    z-index: 2;
+}
+
+input[type="number"] {
+    width: 60px;
+    font-size: 1.2em;
+    padding: 5px 10px;
+}
+
+#reply {
+    width: 400px;
+    margin: 10px auto; /* Centering the input field */
+}
+
+/* ====== index */
+
+
+
+.splash-container {
+    padding: 50px;
+    text-align: center;
+    animation: bounce 1s;
+}
+
+.activity-buttons {
+    margin-top: 20px;
+}
+
+.activity-btn {
+    display: inline-block;
+    padding: 10px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 30px;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+}
+
+.activity-btn:hover {
+    transform: scale(1.1);
+}
+
+.math-btn {
+    background-color: #FFD700; /* Golden color */
+    color: #4B0082; /* Indigo color */
+}
+
+.clock-btn {
+    background-color: #20B2AA; /* Light sea green */
+    color: #FF4500; /* Orange red */
+}
+
+.math-btn:hover {
+    background-color: #FFA500; /* Orange color */
+}
+
+.clock-btn:hover {
+    background-color: #2E8B57; /* Sea green */
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-20px);
+    }
+    60% {
+        transform: translateY(-10px);
+    }
 }

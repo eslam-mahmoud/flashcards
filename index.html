@@ -3,65 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flashcards Game</title>
+    <title>Select Activity</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.2.0"></script>
-    <script src="script.js" defer></script>
 </head>
-<body>
-    <div id="settings" class="container">
-        <h2>Flash Cards</h2>
-        
-        <label>
-            Operation:
-            <br/>
-            <label class="checkboxLabel"><input type="checkbox" class="operation" value="+" checked> +</label>
-            <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> -</label>
-            <label class="checkboxLabel"><input type="checkbox" class="operation" value="*"> x</label>
-            <label class="checkboxLabel"><input type="checkbox" class="operation" value="/"> ÷</label>
-        </label>
-        <br><br>
-
-        <label>
-            Main Numbers:
-            <br/>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="0"> 0 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="1"> 1 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="2"> 2 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="3"> 3 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="4"> 4 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="5"> 5 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="6"> 6 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="7"> 7 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="8"> 8 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="9"> 9 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="10"> 10 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="11"> 11 </label>
-            <label class="checkboxLabel"><input type="checkbox" class="main-number" value="12"> 12 </label>
-        </label>
-        <br><br>
-
-        <label>
-            Max Number:
-            <select id="maxNumber"></select>
-        </label>
-        <br><br>
-
-        <button id="startButton">Start</button>
-    </div>
-
-    <div id="game" class="container">
-        <div class="header">
-            <a href="#" id="backLink">Back</a>
-            <p id="score">Score: 0/0</p>
+<body style="background-color: #FFB6C1;">
+    <div class="splash-container">
+        <h1>Welcome to Learning Activities 🎉</h1>
+        <p>Select an activity to start:</p>
+        <div class="activity-buttons">
+            <a href="math.html" class="activity-btn math-btn">✖️ Math Challenge</a>
+            <br>
+            <a href="clock.html" class="activity-btn clock-btn">🕰️ Time Quest</a>
         </div>
-        <h1 id="question"></h1>
-        <input type="number" id="answer">
-        <br/>
-        <button id="submitAnswer">Submit</button>
-        <button id="newQuestion">New Question</button>
-        <p id="feedback"></p>
     </div>
+
+    <script>
+        $(".math-btn").hover(function() {
+            $(this).text("➕➖➗ Let's do Math ➗➖➕");
+        }, function() {
+            $(this).text("✖️ Math Challenge");
+        });
+
+        $(".clock-btn").hover(function() {
+            $(this).text("⏰ Time to Learn the Clock ⏰");
+        }, function() {
+            $(this).text("🕰️ Time Quest");
+        });
+    </script>
 </body>
 </html>
