@@ -208,18 +208,25 @@ input[type="number"] {
     background-color: #FFD700; /* Golden color */
     color: #4B0082; /* Indigo color */
 }
+.math-btn:hover {
+    background-color: #FFA500; /* Orange color */
+}
 
 .clock-btn {
     background-color: #20B2AA; /* Light sea green */
     color: #4B0082; /* Orange red */
 }
-
-.math-btn:hover {
-    background-color: #FFA500; /* Orange color */
-}
-
 .clock-btn:hover {
     background-color: #2E8B57; /* Sea green */
+}
+
+.operations-btn {
+    background-color: #FF6347; /* Tomato color */
+    color: #4B0082; /* Indigo color */
+}
+.operations-btn:hover {
+    background-color: #FF4500; /* Orange red */
+    color: #4B0082; /* Indigo color */
 }
 
 @keyframes bounce {
@@ -234,6 +241,11 @@ input[type="number"] {
     }
 }
 
+#lessThan, #moreThan {
+    width: auto;
+    padding: 10px;
+    font-size: 25px;
+}
 
 /* Universal styles */
 body {

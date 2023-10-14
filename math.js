@@ -10,7 +10,6 @@ let lastQuestion = {
 // Update the score display
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
-    console.log(`${lastQuestion.mainNumber} ${lastQuestion.operation} ${lastQuestion.randomNum} = ${parseFloat($("#answer").val())}, Score: ${correctAnswers}/${totalQuestions}`);
 }
 
 function checkAnswer() {
