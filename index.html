@@ -18,7 +18,7 @@
             <br>
             <a href="operations.html" class="activity-btn operations-btn"> < Operations</a>
             <br>
-            <a href="fractions.html" class="activity-btn operations-btn"> 1/2 Fractions</a>
+            <a href="fractions.html" class="activity-btn fractions-btn"> 1/2 Fractions</a>
         </div>
     </div>
 
@@ -39,6 +39,12 @@
             $(this).text("⏰ Time to Learn the Clock ⏰");
         }, function() {
             $(this).text("🕰️ Clock ");
+        });
+
+        $(".fractions-btn").hover(function() {
+            $(this).text("1/2 Fractions 1/2");
+        }, function() {
+            $(this).text("1/2 Fractions");
         });
     </script>
 </body>

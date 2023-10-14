@@ -10,21 +10,58 @@ function updateScore() {
 let currentFraction = 2; // default to 1/2
 
 function drawRectangle(fraction) {
+    let maxWidth = 250;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let sectionWidth = canvas.width / fraction;
+    let sectionWidth = maxWidth / fraction;
 
     for (let i = 1; i < fraction; i++) {
         ctx.beginPath();
-        ctx.moveTo(sectionWidth * i, 0);
-        ctx.lineTo(sectionWidth * i, canvas.height);
+        ctx.moveTo(25 + (sectionWidth * i), 100);
+        ctx.lineTo(25 + (sectionWidth * i), 200);
         ctx.stroke();
     }
 
     // Highlight a random section
     let randomSection = Math.floor(Math.random() * fraction);
     ctx.fillStyle = "rgba(255, 165, 0, 0.5)"; // light orange
-    ctx.fillRect(sectionWidth * randomSection, 0, sectionWidth, canvas.height);
+    ctx.fillRect(25 + (sectionWidth * randomSection), 100, sectionWidth, 100);
+    roundRect(ctx, 25, 100, maxWidth, 100);
 }
+
+function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+    if (typeof stroke === 'undefined') {
+      stroke = true;
+    }
+    if (typeof radius === 'undefined') {
+      radius = 5;
+    }
+    if (typeof radius === 'number') {
+      radius = {tl: radius, tr: radius, br: radius, bl: radius};
+    } else {
+      var defaultRadius = {tl: 0, tr: 0, br: 0, bl: 0};
+      for (var side in defaultRadius) {
+        radius[side] = radius[side] || defaultRadius[side];
+      }
+    }
+    ctx.beginPath();
+    ctx.moveTo(x + radius.tl, y);
+    ctx.lineTo(x + width - radius.tr, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius.tr);
+    ctx.lineTo(x + width, y + height - radius.br);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius.br, y + height);
+    ctx.lineTo(x + radius.bl, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius.bl);
+    ctx.lineTo(x, y + radius.tl);
+    ctx.quadraticCurveTo(x, y, x + radius.tl, y);
+    ctx.closePath();
+    if (fill) {
+      ctx.fill();
+    }
+    if (stroke) {
+      ctx.stroke();
+    }
+  
+  }
 
 function drawCircle(fraction) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -61,13 +98,13 @@ function newQuestion() {
     $("#newQuestion").hide();
     $("#feedback").hide();
     $("#submitAnswer").show();
-    $("#fractionInput").val("");
-    $("#fractionInput").focus();
+    $("#answer").val("");
+    $("#answer").focus();
 }
 $(document).ready(function() {
     $("#submitAnswer").click(function() {
         // read data attr from button
-        var userAnswer = $("#fractionInput").val();
+        var userAnswer = $("#answer").val();
         if (userAnswer == `1/${currentFraction}`) {
             $("#feedback").text("Correct 👍").css("color", "green");
             $("#submitAnswer").hide();
