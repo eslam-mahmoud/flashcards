@@ -342,3 +342,14 @@ h1, h2 {
     text-align: center;
     margin-top: 20px;
 }
+
+
+/* ----------- fractions -------------- */
+
+
+#shapeCanvas {
+    display: block;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+}
+
