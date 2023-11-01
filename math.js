@@ -55,7 +55,9 @@ function generateQuestion() {
                 randomNum = Math.floor(Math.random() * (max + 1));
                 break;
             case "-":
-                randomNum = Math.floor(Math.random() * (max + 1));
+                do {
+                    randomNum = Math.floor(Math.random() * (max + 1));
+                } while(randomNum >= selectedMainNumber); // Ensure randomNum is not greater than selectedMainNumber
                 break;
             case "*":
                 randomNum = Math.floor(Math.random() * (max + 1));
