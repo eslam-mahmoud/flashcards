@@ -319,6 +319,9 @@ h1, h2 {
 .checkboxLabel input[type="checkbox"] {
     display: none; /* Hide the default checkbox */
 }
+.checkboxLabel input[type="radio"] {
+    display: none; /* Hide the default checkbox */
+}
 
 .checkboxLabel span {
     padding: 0px 5px;
@@ -328,6 +331,11 @@ h1, h2 {
 }
 
 .checkboxLabel input[type="checkbox"]:checked + span {
+    background-color: #FF6347;
+    color: #FFF;
+}
+
+.checkboxLabel input[type="radio"]:checked + span {
     background-color: #FF6347;
     color: #FFF;
 }

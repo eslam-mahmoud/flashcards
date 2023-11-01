@@ -37,10 +37,10 @@ function checkAnswer() {
 
 function generateQuestion() {
     $("#answer").val("");
+    // get input radio value where name="numberRange"
+    const numberRange = parseInt($("input[name='numberRange']:checked").val());
 
     const operations = $(".operation:checked").map(function() { return this.value; }).get();
-    const mainNumbers = $(".main-number:checked").map(function() { return parseInt(this.value); }).get();
-    const max = parseInt($("#maxNumber").val());
 
     let selectedOperation;
     let selectedMainNumber;
@@ -48,25 +48,25 @@ function generateQuestion() {
 
     do {
         selectedOperation = operations[Math.floor(Math.random() * operations.length)];
-        selectedMainNumber = mainNumbers[Math.floor(Math.random() * mainNumbers.length)];
+        selectedMainNumber = Math.floor(Math.random() * (numberRange+1));
 
         switch(selectedOperation) {
             case "+":
-                randomNum = Math.floor(Math.random() * (max + 1));
+                randomNum = Math.floor(Math.random() * (numberRange + 1));
                 break;
             case "-":
                 do {
-                    randomNum = Math.floor(Math.random() * (max + 1));
+                    randomNum = Math.floor(Math.random() * (numberRange + 1));
                     console.log(selectedMainNumber, randomNum);
                 } while(randomNum > selectedMainNumber); // Ensure randomNum is not greater than selectedMainNumber
                 break;
             case "*":
-                randomNum = Math.floor(Math.random() * (max + 1));
+                randomNum = Math.floor(Math.random() * (numberRange + 1));
                 break;
             case "/":
                 do {
-                    randomNum = Math.floor(Math.random() * (max + 1));
-                } while(randomNum === 0); // Ensure randomNum is not zero
+                    randomNum = Math.floor(Math.random() * (numberRange + 1));
+                } while(randomNum === 0 || (randomNum > selectedMainNumber && selectedMainNumber != 0)); // Ensure randomNum is not zero
                 break;
         }
     } while (
