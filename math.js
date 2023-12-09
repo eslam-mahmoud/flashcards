@@ -27,6 +27,17 @@ function checkAnswer() {
     } else {
         $("#feedback").text(`Wrong! The correct answer is ${currentAnswer}.`).css("color", "red");
     }
+    // add question and answer and feedback to logs
+    const log = {
+        time: new Date().toLocaleTimeString(),
+        question: $("#question").text(),
+        answer: currentAnswer,
+        userAnswer: userAnswer,
+        feedback: $("#feedback").text()
+    };
+    $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
+
+
     totalQuestions++;
     updateScore();
 
@@ -156,5 +167,10 @@ $(document).ready(function() {
             mainNumber: null,
             randomNum: null
         };
+    });
+
+    $('#logs').on('click', function(e) {
+        e.preventDefault();
+        $('#logsModal').toggle();
     });
 });
