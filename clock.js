@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
         currentMinute = Math.floor(Math.random() * 12) * 5;  // Random minute from 0 to 59
         console.log(`Hour: ${currentHour}, Minute: ${currentMinute}`);
         
-        const hourRotation = (360/12) * currentHour ;
+        const hourRotation = (360/12) * currentHour + (360/12) * (currentMinute/60);
         const minuteRotation = (360/60) * currentMinute;
 
         currentHour = currentHour === 0 ? 12 : currentHour;

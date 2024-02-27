@@ -11,7 +11,7 @@ let lastQuestion = {
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
 }
-
+var logs = [];
 function checkAnswer() {
     const userAnswer = parseFloat($("#answer").val());
 
@@ -35,6 +35,7 @@ function checkAnswer() {
         userAnswer: userAnswer,
         feedback: $("#feedback").text()
     };
+    logs.push(log);
     $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
 
 
