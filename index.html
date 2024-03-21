@@ -19,6 +19,8 @@
             <a href="operations.html" class="activity-btn operations-btn"> < Operations</a>
             <br>
             <a href="fractions.html" class="activity-btn fractions-btn"> 1/2 Fractions</a>
+            <br>
+            <a href="words.html" class="activity-btn words-btn">Words</a>
         </div>
     </div>
 
@@ -45,6 +47,12 @@
             $(this).text("1/2 Fractions 1/2");
         }, function() {
             $(this).text("1/2 Fractions");
+        });
+
+        $(".words-btn").hover(function() {
+            $(this).text("📚 Let's Learn Words 📚");
+        }, function() {
+            $(this).text("Words");
         });
     </script>
 </body>

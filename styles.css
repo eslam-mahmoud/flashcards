@@ -238,6 +238,15 @@ input[type="number"] {
     color: #dfdfdf; /* Indigo color */
 }
 
+.words-btn {
+    background-color: #FF6347; /* Tomato color */
+    color: #4B0082; /* Indigo color */
+}
+.words-btn:hover {
+    background-color: #FF4500; /* Orange red */
+    color: #4B0082; /* Indigo color */
+}
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
@@ -372,4 +381,10 @@ h1, h2 {
 
 #logsModal {
     display: none;
+}
+
+/* highlight select radio button and the lable next to it */
+input[type="radio"]:checked + label {
+    background-color: #FF6347;
+    color: #FFF;
 }
