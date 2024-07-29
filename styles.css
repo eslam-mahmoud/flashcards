@@ -204,6 +204,15 @@ input[type="number"] {
     transform: scale(1.1);
 }
 
+.ar-alpha-btn {
+    background-color: #dfdfdf; /* Light gray */
+    color: #4B0082; /* Indigo color */
+}
+.ar-alpha-btn:hover {
+    background-color: #4B0082; /* Orange red */
+    color: #dfdfdf; /* Indigo color */
+}
+
 .math-btn {
     background-color: #FFD700; /* Golden color */
     color: #4B0082; /* Indigo color */

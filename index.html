@@ -12,6 +12,8 @@
         <h1>🎉 Welcome to Learning Activities 🎉</h1>
         <p>Select an activity to start:</p>
         <div class="activity-buttons">
+            <a href="ar-alpha.html" class="activity-btn ar-alpha-btn">أ ب ت</a>
+            <br>
             <a href="math.html" class="activity-btn math-btn">✖️ Math</a>
             <br>
             <a href="clock.html" class="activity-btn clock-btn">🕰️ Clock</a>
@@ -25,6 +27,12 @@
     </div>
 
     <script>
+        $(".ar-alpha-btn").hover(function() {
+            $(this).text("أ ب ت - الحروف العربية - و لا ي");
+        }, function() {
+            $(this).text("أ ب ت");
+        });
+
         $(".math-btn").hover(function() {
             $(this).text("➕➖➗ Let's do Math ➗➖➕");
         }, function() {
