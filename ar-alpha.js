@@ -1,9 +1,9 @@
 const ar_alphabet = [
     {
-        "letter": "ا",
-        "beginning": "اـ",
-        "middle": "ـاـ",
-        "end": "ـا"
+        "letter": "أ",
+        "beginning": "أـ",
+        "middle": "ـأـ",
+        "end": "ـأ"
     },
     {
         "letter": "ب",
