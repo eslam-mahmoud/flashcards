@@ -1,171 +1,171 @@
 const ar_alphabet = [
     {
         "letter": "ا",
-        "asFirst": "اـ",
-        "inMiddle": "ـاـ",
-        "asLast": "ـا"
+        "beginning": "اـ",
+        "middle": "ـاـ",
+        "end": "ـا"
     },
     {
         "letter": "ب",
-        "asFirst": "بـ",
-        "inMiddle": "ـبـ",
-        "asLast": "ـب"
+        "beginning": "بـ",
+        "middle": "ـبـ",
+        "end": "ـب"
     },
     {
         "letter": "ت",
-        "asFirst": "تـ",
-        "inMiddle": "ـتـ",
-        "asLast": "ـت"
+        "beginning": "تـ",
+        "middle": "ـتـ",
+        "end": "ـت"
     },
     {
         "letter": "ث",
-        "asFirst": "ثـ",
-        "inMiddle": "ـثـ",
-        "asLast": "ـث"
+        "beginning": "ثـ",
+        "middle": "ـثـ",
+        "end": "ـث"
     },
     {
         "letter": "ج",
-        "asFirst": "جـ",
-        "inMiddle": "ـجـ",
-        "asLast": "ـج"
+        "beginning": "جـ",
+        "middle": "ـجـ",
+        "end": "ـج"
     },
     {
         "letter": "ح",
-        "asFirst": "حـ",
-        "inMiddle": "ـحـ",
-        "asLast": "ـح"
+        "beginning": "حـ",
+        "middle": "ـحـ",
+        "end": "ـح"
     },
     {
         "letter": "خ",
-        "asFirst": "خـ",
-        "inMiddle": "ـخـ",
-        "asLast": "ـخ"
+        "beginning": "خـ",
+        "middle": "ـخـ",
+        "end": "ـخ"
     },
     {
         "letter": "د",
-        "asFirst": "دـ",
-        "inMiddle": "ـدـ",
-        "asLast": "ـد"
+        "beginning": "دـ",
+        "middle": "ـدـ",
+        "end": "ـد"
     },
     {
         "letter": "ذ",
-        "asFirst": "ذـ",
-        "inMiddle": "ـذـ",
-        "asLast": "ـذ"
+        "beginning": "ذـ",
+        "middle": "ـذـ",
+        "end": "ـذ"
     },
     {
         "letter": "ر",
-        "asFirst": "رـ",
-        "inMiddle": "ـرـ",
-        "asLast": "ـر"
+        "beginning": "رـ",
+        "middle": "ـرـ",
+        "end": "ـر"
     },
     {
         "letter": "ز",
-        "asFirst": "زـ",
-        "inMiddle": "ـزـ",
-        "asLast": "ـز"
+        "beginning": "زـ",
+        "middle": "ـزـ",
+        "end": "ـز"
     },
     {
         "letter": "س",
-        "asFirst": "سـ",
-        "inMiddle": "ـسـ",
-        "asLast": "ـس"
+        "beginning": "سـ",
+        "middle": "ـسـ",
+        "end": "ـس"
     },
     {
         "letter": "ش",
-        "asFirst": "شـ",
-        "inMiddle": "ـشـ",
-        "asLast": "ـش"
+        "beginning": "شـ",
+        "middle": "ـشـ",
+        "end": "ـش"
     },
     {
         "letter": "ص",
-        "asFirst": "صـ",
-        "inMiddle": "ـصـ",
-        "asLast": "ـص"
+        "beginning": "صـ",
+        "middle": "ـصـ",
+        "end": "ـص"
     },
     {
         "letter": "ض",
-        "asFirst": "ضـ",
-        "inMiddle": "ـضـ",
-        "asLast": "ـض"
+        "beginning": "ضـ",
+        "middle": "ـضـ",
+        "end": "ـض"
     },
     {
         "letter": "ط",
-        "asFirst": "طـ",
-        "inMiddle": "ـطـ",
-        "asLast": "ـط"
+        "beginning": "طـ",
+        "middle": "ـطـ",
+        "end": "ـط"
     },
     {
         "letter": "ظ",
-        "asFirst": "ظـ",
-        "inMiddle": "ـظـ",
-        "asLast": "ـظ"
+        "beginning": "ظـ",
+        "middle": "ـظـ",
+        "end": "ـظ"
     },
     {
         "letter": "ع",
-        "asFirst": "عـ",
-        "inMiddle": "ـعـ",
-        "asLast": "ـع"
+        "beginning": "عـ",
+        "middle": "ـعـ",
+        "end": "ـع"
     },
     {
         "letter": "غ",
-        "asFirst": "غـ",
-        "inMiddle": "ـغـ",
-        "asLast": "ـغ"
+        "beginning": "غـ",
+        "middle": "ـغـ",
+        "end": "ـغ"
     },
     {
         "letter": "ف",
-        "asFirst": "فـ",
-        "inMiddle": "ـفـ",
-        "asLast": "ـف"
+        "beginning": "فـ",
+        "middle": "ـفـ",
+        "end": "ـف"
     },
     {
         "letter": "ق",
-        "asFirst": "قـ",
-        "inMiddle": "ـقـ",
-        "asLast": "ـق"
+        "beginning": "قـ",
+        "middle": "ـقـ",
+        "end": "ـق"
     },
     {
         "letter": "ك",
-        "asFirst": "كـ",
-        "inMiddle": "ـكـ",
-        "asLast": "ـك"
+        "beginning": "كـ",
+        "middle": "ـكـ",
+        "end": "ـك"
     },
     {
         "letter": "ل",
-        "asFirst": "لـ",
-        "inMiddle": "ـلـ",
-        "asLast": "ـل"
+        "beginning": "لـ",
+        "middle": "ـلـ",
+        "end": "ـل"
     },
     {
         "letter": "م",
-        "asFirst": "مـ",
-        "inMiddle": "ـمـ",
-        "asLast": "ـم"
+        "beginning": "مـ",
+        "middle": "ـمـ",
+        "end": "ـم"
     },
     {
         "letter": "ن",
-        "asFirst": "نـ",
-        "inMiddle": "ـنـ",
-        "asLast": "ـن"
+        "beginning": "نـ",
+        "middle": "ـنـ",
+        "end": "ـن"
     },
     {
         "letter": "ه",
-        "asFirst": "هـ",
-        "inMiddle": "ـهـ",
-        "asLast": "ـه"
+        "beginning": "هـ",
+        "middle": "ـهـ",
+        "end": "ـه"
     },
     {
         "letter": "و",
-        "asFirst": "وـ",
-        "inMiddle": "ـوـ",
-        "asLast": "ـو"
+        "beginning": "وـ",
+        "middle": "ـوـ",
+        "end": "ـو"
     },
     {
         "letter": "ي",
-        "asFirst": "يـ",
-        "inMiddle": "ـيـ",
-        "asLast": "ـي"
+        "beginning": "يـ",
+        "middle": "ـيـ",
+        "end": "ـي"
     }
 ]
 
@@ -190,19 +190,19 @@ function setQuestion() {
         letter_index = (letter_index + 1) % ar_alphabet.length;
     }
     var letter = ar_alphabet[letter_index];
-    // if singleLetter checkbox checked dispaly letter.letter else display asFirst, inMiddle, asLast randomly
+    // if singleLetter checkbox checked dispaly letter.letter else display beginning, middle, end randomly
     if ($("#singleLetter").is(":checked")) {
         $("#question").text(`${letter.letter}`);
     } else {
         var random = Math.floor(Math.random() * 4);
         if (random == 0) {
-            $("#question").text(`${letter.asFirst}`);
+            $("#question").text(`${letter.beginning}`);
         } else if (random == 1) {
-            $("#question").text(`${letter.inMiddle}`);
+            $("#question").text(`${letter.middle}`);
         } else if (random == 2) {
-            $("#question").text(`${letter.asLast}`);
+            $("#question").text(`${letter.end}`);
         } else {
-            $("#question").text(`${letter.inMiddle}`);
+            $("#question").text(`${letter.middle}`);
         }
     }
     $("#newQuestion").show();
