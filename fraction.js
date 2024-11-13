@@ -197,10 +197,10 @@ $(document).ready(function() {
         document.getElementById('wholeNumber').value = '';
         document.getElementById('numerator').value = '';
         document.getElementById('denominator').value = '';
-        
+
         // Clear feedback
         document.getElementById('feedback').textContent = '';
-        
+
         // Generate and display new question
         generateQuestion();
     });
