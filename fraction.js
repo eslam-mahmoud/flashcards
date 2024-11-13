@@ -186,16 +186,9 @@ $(document).ready(function() {
         }
     });
 
-    // Logs modal handlers
-    $("#logs").click(function(e) {
+    $('#logs').on('click', function(e) {
         e.preventDefault();
-        $("#logsModal").show();
-    });
-
-    $(window).click(function(e) {
-        if ($(e.target).is("#logsModal")) {
-            $("#logsModal").hide();
-        }
+        $('#logsModal').toggle();
     });
 
     // Add event listener for the new question button

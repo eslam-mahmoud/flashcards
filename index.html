@@ -16,7 +16,7 @@
             <br>
             <a href="math.html" class="activity-btn math-btn">✖️ Math</a>
             <br>
-            <a href="fraction.html" class="activity-btn fractions-btn">Math Fraction</a>
+            <a href="fraction.html" class="activity-btn fraction-btn">➕ Fraction Math ➕</a>
             <br>
             <a href="clock.html" class="activity-btn clock-btn">🕰️ Clock</a>
             <br>
@@ -39,6 +39,12 @@
             $(this).text("➕➖➗ Let's do Math ➗➖➕");
         }, function() {
             $(this).text("✖️ Math");
+        });
+
+        $(".fraction-btn").hover(function() {
+            $(this).text("1/3 + 2/3 Fraction Math");
+        }, function() {
+            $(this).text("➕ Fraction Math ➕");
         });
 
         $(".operations-btn").hover(function() {

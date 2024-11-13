@@ -247,6 +247,14 @@ input[type="number"] {
     color: #dfdfdf; /* Indigo color */
 }
 
+.fraction-btn {
+    background-color: #27258a;  
+    color: #dfdfdf;
+}
+.fraction-btn:hover {
+    background-color: #00008b;
+    color: #dfdfdf;
+}
 .words-btn {
     background-color: #FF6347; /* Tomato color */
     color: #4B0082; /* Indigo color */
