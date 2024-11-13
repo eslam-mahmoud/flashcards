@@ -77,8 +77,11 @@ function generateQuestion() {
                 break;
             case "/":
                 do {
-                    randomNum = Math.floor(Math.random() * (numberRange + 1));
-                } while(randomNum === 0 || (randomNum > selectedMainNumber && selectedMainNumber != 0)); // Ensure randomNum is not zero
+                    // First, get a non-zero random number within range
+                    randomNum = Math.floor(Math.random() * numberRange) + 1;
+                    // Generate selectedMainNumber as a multiple of randomNum to ensure whole number division
+                    selectedMainNumber = randomNum * Math.floor(Math.random() * (numberRange / randomNum + 1));
+                } while(selectedMainNumber > numberRange); // Ensure we stay within the selected range
                 break;
         }
     } while (
