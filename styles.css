@@ -432,3 +432,21 @@ input[type="radio"]:checked + label {
 #wholeNumber {
     width: 60px;
 }
+
+.fraction {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 3px;
+    text-align: center;
+}
+
+.fraction .numerator {
+    display: block;
+    padding: 2px;
+    border-bottom: 1px solid black;
+}
+
+.fraction .denominator {
+    display: block;
+    padding: 2px;
+}

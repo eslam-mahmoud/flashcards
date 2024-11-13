@@ -118,11 +118,11 @@ function generateQuestion() {
     // Display question
     let questionText = '';
     if (fraction1.whole > 0) questionText += `${fraction1.whole} `;
-    questionText += `${fraction1.numerator}/${fraction1.denominator} ${operation} `;
+    questionText += `<span class="fraction"><span class="numerator">${fraction1.numerator}</span><span class="denominator">${fraction1.denominator}</span></span> ${operation} `;
     if (fraction2.whole > 0) questionText += `${fraction2.whole} `;
-    questionText += `${fraction2.numerator}/${fraction2.denominator} = ?`;
+    questionText += `<span class="fraction"><span class="numerator">${fraction2.numerator}</span><span class="denominator">${fraction2.denominator}</span></span> = ?`;
     
-    $("#question").text(questionText);
+    $("#question").html(questionText);
 
     // Calculate answer
     const improper1 = fraction1.numerator + (fraction1.whole * fraction1.denominator);
