@@ -25,6 +25,8 @@
             <a href="fractions.html" class="activity-btn fractions-btn"> 1/2 Fractions</a>
             <br>
             <a href="words.html" class="activity-btn words-btn">Words</a>
+            <br>
+            <a href="long-division.html" class="activity-btn long-division-btn">➗ Long Division</a>
         </div>
     </div>
 
@@ -69,6 +71,12 @@
             $(this).text("📚 Let's Learn Words 📚");
         }, function() {
             $(this).text("Words");
+        });
+
+        $(".long-division-btn").hover(function() {
+            $(this).text("📝 Practice Long Division 📝");
+        }, function() {
+            $(this).text("➗ Long Division");
         });
     </script>
 </body>
