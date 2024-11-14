@@ -69,8 +69,8 @@ function generateQuestion() {
     currentQuotient = Math.floor(dividend / divisor);
     currentRemainder = dividend % divisor;
 
-    $("#question").text(`${dividend} ÷ ${divisor} = ?`);
-    $("#question, #work-area, #submitAnswer").show();
+    $("#question").html(`<pre>
+   <span class="denominator" style="display: inline-block; border-bottom: 1px solid #000; padding: 5px;">${divisor}</span><span class="numerator" style="display: inline-block; border-top: 1px solid #000; border-left: 1px solid #000; padding: 5px;">${dividend}</span></pre>`);
     $("#newQuestion").hide();
     $("#submitAnswer").show();
     $("#feedback").text("");
