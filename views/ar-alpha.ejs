@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="header">
+        <a href="/" class="backLink">Home</a>
+    </div>
+    <h1>📚 تعلم الحروف العربية 📚</h1>
+    <div dir="rtl">
+        <span><input type="radio" id="sorted" name="letterType" value="sorted" checked> <label for="sorted">مرتب</label></span>
+        <span><input type="radio" id="random" name="letterType" value="random"> <label for="random">عشوائي</label></span>
+        <br>
+        <span><input type="checkbox" id="singleLetter" name="singleLetter" checked> <label for="singleLetter">حرف منفرد</label></span>
+    </div>
+    <h1 id="question"></h1>
+    <br/>
+    <button id="newQuestion">التالي</button>
+</div>
+
+<style>
+    #question {
+        font-size: 195px;
+    }
+</style>
+
+<%- contentFor('scripts') %>
+<script src="/js/ar-alpha.js"></script>

@@ -1,5 +1,6 @@
 var correctAnswers = 0;
 var totalQuestions = 0;
+
 // Update the score display
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const hourHand = document.getElementById('hourHand');
     const minuteHand = document.getElementById('minuteHand');
     const feedback = document.getElementById('feedback');
-    const submitClock = document.getElementById('submitClock');
+    const submitAnswer = document.getElementById('submitAnswer');
     const newQuestion = document.getElementById('newQuestion');
 
     let currentHour, currentMinute;
@@ -27,17 +28,17 @@ document.addEventListener("DOMContentLoaded", function() {
         hourHand.style.transform = `rotate(${hourRotation}deg)`;
         minuteHand.style.transform = `rotate(${minuteRotation}deg)`;
 
-        $("#submitClock").show();
-        $("#hourInput").focus();
+        $("#submitAnswer").show();
+        $("#hours").focus();
         $("#newQuestion").hide();
-        $("#hourInput").val("");
-        $("#minuteInput").val("");
+        $("#hours").val("");
+        $("#minutes").val("");
         $("#feedback").hide();
     }
 
-    submitClock.addEventListener('click', function() {
-        const inputHour = parseInt(document.getElementById('hourInput').value, 10);
-        const inputMinute = parseInt(document.getElementById('minuteInput').value, 10);
+    submitAnswer.addEventListener('click', function() {
+        const inputHour = parseInt(document.getElementById('hours').value, 10);
+        const inputMinute = parseInt(document.getElementById('minutes').value, 10);
         
         if (inputHour === currentHour && inputMinute === currentMinute) {
             feedback.textContent = "Correct 👍";
@@ -50,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            $("#submitClock").hide();
+            $("#submitAnswer").hide();
             $("#newQuestion").show();
             $("#newQuestion").focus();
         } else {
@@ -61,6 +62,9 @@ document.addEventListener("DOMContentLoaded", function() {
         $("#feedback").show();
         totalQuestions++;
         updateScore();
+        // update logs
+        
+        $('#logsContent').append(`<p>${new Date().toLocaleTimeString()}: ${currentHour}:${currentMinute < 10 ? '0' : ''}${currentMinute} (${inputHour}:${inputMinute < 10 ? '0' : ''}${inputMinute}) ${feedback.textContent}</p>`);
     });
 
     newQuestion.addEventListener('click', setRandomClock);

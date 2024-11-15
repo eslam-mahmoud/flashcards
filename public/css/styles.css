@@ -123,7 +123,7 @@ button:hover {
     border-radius: 50%;
     margin: 20px auto;
     position: relative;
-    background-image: url('clock.png') !important;
+    background-image: url('/images/clock.png') !important;
     background-size: contain;
 }
 

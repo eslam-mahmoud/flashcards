@@ -1,0 +1,50 @@
+<div id="settings" class="container">
+    <div class="header">
+        <a href="/" class="backLink">Home</a>
+    </div>
+    <h2>Math Practice</h2>
+    
+    <label>
+        Operation:
+        <br/>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="+" checked> <span>+</span></label>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> <span>-</span></label>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="*"> <span>x</span></label>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="/"> <span>÷</span></label>
+    </label>
+    <br><br>
+
+    <label>
+        Range of numbers:
+        <br/>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="10" checked> <span>0 - 10</span> </label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="100"> <span>0 - 100</span> </label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="1000"> <span>0 - 1000</span> </label>
+    </label>
+    <br><br>
+
+    <button id="startButton">Start</button>
+</div>
+
+<div id="game" class="container">
+    <div class="header">
+        <a href="#" class="backLink">Back</a>
+        <p id="score">Score: 0/0</p>
+    </div>
+    <h1 id="question"></h1>
+    <input type="number" id="answer">
+    <br/>
+    <button id="submitAnswer">Submit</button>
+    <button id="newQuestion">New Question</button>
+    <p id="feedback"></p>
+    <a href="#" id="logs">Logs</a>
+    <div id="logsModal" class="modal">
+        <div class="modal-content">
+            <h2>Logs</h2>
+            <p id="logsContent"></p>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/math.js"></script> 

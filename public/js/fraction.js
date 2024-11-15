@@ -6,7 +6,6 @@ let lastQuestion = null;
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
 }
-var logs = [];
 
 // Helper function to get GCD for fraction simplification
 function gcd(a, b) {
@@ -85,7 +84,6 @@ function checkAnswer() {
         userAnswer: `${userWhole} ${userNumerator}/${userDenominator}`,
         feedback: $("#feedback").text()
     };
-    logs.push(log);
     $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
 
     totalQuestions++;
@@ -184,11 +182,6 @@ $(document).ready(function() {
         if (e.which === 13) {
             checkAnswer();
         }
-    });
-
-    $('#logs').on('click', function(e) {
-        e.preventDefault();
-        $('#logsModal').toggle();
     });
 
     // Add event listener for the new question button
