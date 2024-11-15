@@ -2,7 +2,7 @@ var correctAnswers = 0;
 var totalQuestions = 0;
 var number1 = 0;
 var number2 = 0;
-// Update the score display
+
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
 }
@@ -22,10 +22,8 @@ function setQuestion() {
     $(".submitAnswer").show();
 }
 
-// on load add lisiner on .submitAnswer
 $(document).ready(function() {
     $(".submitAnswer").click(function() {
-        // read data attr from button
         var userAnswer = $(this).attr("data-answer");
         if ((userAnswer == "less" & number1 < number2) || (userAnswer == "more" & number1 > number2)) {
             $("#feedback").text("Correct 👍").css("color", "green");

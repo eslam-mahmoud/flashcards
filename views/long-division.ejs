@@ -1,0 +1,54 @@
+<div id="settings" class="container">
+    <div class="header">
+        <a href="/" class="backLink">Home</a>
+    </div>
+    <h2>Long Division Practice</h2>
+    
+    <label>
+        Difficulty:
+        <br/>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="easy" checked> 
+            <span>Easy (2-digit ÷ 1-digit)</span>
+        </label>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="medium"> 
+            <span>Medium (3-digit ÷ 1-digit)</span>
+        </label>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="hard"> 
+            <span>Hard (3-digit ÷ 2-digit)</span>
+        </label>
+    </label>
+    <br><br>
+
+    <button id="startButton">Start</button>
+</div>
+
+<div id="game" class="container">
+    <div class="header">
+        <a href="#" class="backLink">Back</a>
+        <p id="score">Score: 0/0</p>
+    </div>
+    <div id="division-problem">
+        <p id="question"></p>
+        <div id="work-area">
+            <input type="number" id="quotient" placeholder="Quotient">
+            <input type="number" id="remainder" placeholder="Remainder">
+        </div>
+    </div>
+    <br/>
+    <button id="submitAnswer">Submit</button>
+    <button id="newQuestion">New Question</button>
+    <p id="feedback"></p>
+    <a href="#" id="logs">Logs</a>
+    <div id="logsModal" class="modal">
+        <div class="modal-content">
+            <h2>Logs</h2>
+            <p id="logsContent"></p>
+        </div>
+    </div>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/long-division.js"></script> 

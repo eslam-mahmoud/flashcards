@@ -29,7 +29,7 @@ function checkAnswer() {
 
     const log = {
         time: new Date().toLocaleTimeString(),
-        question: $("#question").text(),
+        question: $("#question").html(),
         answer: `${currentQuotient} r ${currentRemainder}`,
         userAnswer: `${userQuotient} r ${userRemainder}`,
         correct: isCorrect
@@ -53,16 +53,16 @@ function generateQuestion() {
 
     switch(difficulty) {
         case "easy":
-            divisor = Math.floor(Math.random() * 8) + 2; // 2-9
-            dividend = divisor * (Math.floor(Math.random() * 11) + 2) + Math.floor(Math.random() * divisor); // 2-digit number
+            divisor = Math.floor(Math.random() * 8) + 2;
+            dividend = divisor * (Math.floor(Math.random() * 11) + 2) + Math.floor(Math.random() * divisor);
             break;
         case "medium":
-            divisor = Math.floor(Math.random() * 8) + 2; // 2-9
-            dividend = divisor * (Math.floor(Math.random() * 101) + 10) + Math.floor(Math.random() * divisor); // 3-digit number
+            divisor = Math.floor(Math.random() * 8) + 2;
+            dividend = divisor * (Math.floor(Math.random() * 101) + 10) + Math.floor(Math.random() * divisor);
             break;
         case "hard":
-            divisor = Math.floor(Math.random() * 90) + 10; // 10-99
-            dividend = divisor * (Math.floor(Math.random() * 11) + 2) + Math.floor(Math.random() * divisor); // 3-digit number
+            divisor = Math.floor(Math.random() * 90) + 10;
+            dividend = divisor * (Math.floor(Math.random() * 11) + 2) + Math.floor(Math.random() * divisor);
             break;
     }
 
@@ -109,10 +109,5 @@ $(document).ready(function() {
         $("#settings").show();
         $("#game").hide();
         $("#question, #work-area, #submitAnswer, #feedback, #newQuestion").hide();
-    });
-
-    $('#logs').on('click', function(e) {
-        e.preventDefault();
-        $('#logsModal').toggle();
     });
 }); 
