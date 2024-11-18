@@ -1,6 +1,6 @@
 'use strict'
 import awsServerlessExpress from 'aws-serverless-express'
-import app from './app.js'
+import app from './app.mjs'
 const binaryMimeTypes = [
 	'application/octet-stream',
 	'font/eot',
