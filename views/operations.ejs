@@ -1,16 +1,15 @@
 <div class="container">
-    <div class="header">
-        <a href="/" class="backLink">Home</a>
-        <p id="score">Score: 0/0</p>
-    </div>
+    <%- include('partials/header') %>
     <h1 id="question"></h1>
     <br/>
-    <div class="header">
+    <div class="button-container">
         <button id="lessThan" class="submitAnswer" data-answer="less">Less than <br> < </button>
         <button id="moreThan" class="submitAnswer" data-answer="more">More than <br> > </button>
     </div>
-    <button id="newQuestion">New Question</button>
-    <p id="feedback"></p>
+    <div class="button-container">
+        <button id="newQuestion">New Question</button>
+    </div>
+    <%- include('partials/feedback') %>
 </div>
 
 <%- contentFor('scripts') %>

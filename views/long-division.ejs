@@ -1,7 +1,5 @@
 <div id="settings" class="container">
-    <div class="header">
-        <a href="/" class="backLink">Home</a>
-    </div>
+    <%- include('partials/header', { showScore: false }) %>
     <h2>Long Division Practice</h2>
     
     <label>
@@ -25,29 +23,22 @@
     <button id="startButton">Start</button>
 </div>
 
-<div id="game" class="container">
-    <div class="header">
-        <a href="#" class="backLink">Back</a>
-        <p id="score">Score: 0/0</p>
-    </div>
+<div id="game" class="container long-division">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
     <div id="division-problem">
         <p id="question"></p>
-        <div id="work-area">
+        <div id="answerInputs">
             <input type="number" id="quotient" placeholder="Quotient">
             <input type="number" id="remainder" placeholder="Remainder">
         </div>
     </div>
-    <br/>
-    <button id="submitAnswer">Submit</button>
-    <button id="newQuestion">New Question</button>
-    <p id="feedback"></p>
-    <a href="#" id="logs">Logs</a>
-    <div id="logsModal" class="modal">
-        <div class="modal-content">
-            <h2>Logs</h2>
-            <p id="logsContent"></p>
-        </div>
+    <div class="button-container">
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
     </div>
+    <p id="feedback"></p>
+    
+    <%- include('partials/logs') %>
 </div>
 
 <%- contentFor('scripts') %>

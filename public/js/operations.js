@@ -22,19 +22,18 @@ function setQuestion() {
     $(".submitAnswer").show();
 }
 
-$(document).ready(function() {
-    $(".submitAnswer").click(function() {
+$(document).ready(function () {
+    $(".submitAnswer").click(function () {
         var userAnswer = $(this).attr("data-answer");
+        $(".submitAnswer").hide();
         if ((userAnswer == "less" & number1 < number2) || (userAnswer == "more" & number1 > number2)) {
             $("#feedback").text("Correct 👍").css("color", "green");
-            $("#submitAnswer").hide();
             correctAnswers++;
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            $(".submitAnswer").hide();
         } else {
             $("#feedback").text(`Wrong! The correct answer is ${number1 > number2 ? " (More than >) " : " (Less than <) "}.`).css("color", "red");
         }
@@ -46,7 +45,7 @@ $(document).ready(function() {
         $("#feedback").show();
     });
 
-    $("#newQuestion").click(function() {
+    $("#newQuestion").click(function () {
         setQuestion();
     });
     setQuestion();
