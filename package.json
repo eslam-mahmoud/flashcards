@@ -4,6 +4,7 @@
   "description": "",
   "main": "ar-alpha.js",
   "dependencies": {
+    "@codegenie/serverless-express": "^4.16.0",
     "accepts": "^1.3.8",
     "ansi-styles": "^4.3.0",
     "array-flatten": "^1.1.1",
