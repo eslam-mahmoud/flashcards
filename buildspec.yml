@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      nodejs: 16  # Specify the Node.js version
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Running tests...
+      - echo "No tests to run"
+  post_build:
+    commands:
+      - echo Packaging application...
+      - zip -r function.zip .  # Create the deployment package
+artifacts:
+  files:
+    - function.zip
