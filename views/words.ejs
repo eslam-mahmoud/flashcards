@@ -1,0 +1,21 @@
+<div class="container" id="words">
+    <%- include('partials/header') %>
+    <h1>📚 Let's Learn Words 📚</h1>
+    <div>
+        <span><input type="radio" id="Numbers" name="wordType" value="Numbers" checked> <label for="Numbers">Numbers</label></span>
+        <span><input type="radio" id="Prepositions" name="wordType" value="Prepositions"> <label for="Prepositions">Prepositions</label></span>
+        <span><input type="radio" id="Pronouns" name="wordType" value="Pronouns"> <label for="Pronouns">Pronouns</label></span>
+        <span><input type="radio" id="Verbs" name="wordType" value="Verbs"> <label for="Verbs">Verbs</label></span>
+        <span><input type="radio" id="Nouns" name="wordType" value="Nouns"> <label for="Nouns">Nouns</label></span>
+        <span><input type="radio" id="Body" name="wordType" value="Body"> <label for="Body">Body</label></span>
+        <span><input type="radio" id="Animal" name="wordType" value="Animal"> <label for="Animal">Animal</label></span>
+    </div>
+    <h1 id="question"></h1>
+    <br/>
+    <div class="button-container">
+        <button id="newQuestion">Next Word</button>
+    </div>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/words.js"></script> 

@@ -1,0 +1,46 @@
+<div id="settings" class="container">
+    <%- include('partials/header', { showScore: false }) %>
+    <h2>Fraction Practice</h2>
+    
+    <label>
+        Operation:
+        <br/>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="+" checked> <span>+</span></label>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> <span>-</span></label>
+    </label>
+    <br><br>
+
+    <label class="checkboxLabel">
+        <input type="checkbox" id="allowMixedNumbers"> <span>Allow Mixed Numbers (e.g., 1 2/3)</span>
+    </label>
+    <br><br>
+
+    <div class="button-container">
+        <button id="startButton">Start</button>
+    </div>
+</div>
+
+<div id="game" class="container">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
+    <h1 id="question"></h1>
+    <div id="answerInputs">
+        <div class="fraction-input">
+            <input type="number" id="wholeNumber" placeholder="Whole">
+            <div class="fraction-part">
+                <input type="number" id="numerator" placeholder="Numerator">
+                <hr>
+                <input type="number" id="denominator" placeholder="Denominator">
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="button-container">
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
+    </div>
+    <%- include('partials/feedback') %>
+    <%- include('partials/logs') %>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/fraction.js"></script> 

@@ -2,7 +2,7 @@ var correctAnswers = 0;
 var totalQuestions = 0;
 var number1 = 0;
 var number2 = 0;
-// Update the score display
+
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
 }
@@ -22,21 +22,18 @@ function setQuestion() {
     $(".submitAnswer").show();
 }
 
-// on load add lisiner on .submitAnswer
-$(document).ready(function() {
-    $(".submitAnswer").click(function() {
-        // read data attr from button
+$(document).ready(function () {
+    $(".submitAnswer").click(function () {
         var userAnswer = $(this).attr("data-answer");
+        $(".submitAnswer").hide();
         if ((userAnswer == "less" & number1 < number2) || (userAnswer == "more" & number1 > number2)) {
             $("#feedback").text("Correct 👍").css("color", "green");
-            $("#submitAnswer").hide();
             correctAnswers++;
             confetti({
                 particleCount: 100,
                 spread: 70,
                 origin: { y: 0.6 }
             });
-            $(".submitAnswer").hide();
         } else {
             $("#feedback").text(`Wrong! The correct answer is ${number1 > number2 ? " (More than >) " : " (Less than <) "}.`).css("color", "red");
         }
@@ -48,7 +45,7 @@ $(document).ready(function() {
         $("#feedback").show();
     });
 
-    $("#newQuestion").click(function() {
+    $("#newQuestion").click(function () {
         setQuestion();
     });
     setQuestion();

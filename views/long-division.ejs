@@ -1,0 +1,45 @@
+<div id="settings" class="container">
+    <%- include('partials/header', { showScore: false }) %>
+    <h2>Long Division Practice</h2>
+    
+    <label>
+        Difficulty:
+        <br/>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="easy" checked> 
+            <span>Easy (2-digit ÷ 1-digit)</span>
+        </label>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="medium"> 
+            <span>Medium (3-digit ÷ 1-digit)</span>
+        </label>
+        <label class="checkboxLabel">
+            <input type="radio" name="difficulty" value="hard"> 
+            <span>Hard (3-digit ÷ 2-digit)</span>
+        </label>
+    </label>
+    <br><br>
+
+    <button id="startButton">Start</button>
+</div>
+
+<div id="game" class="container long-division">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
+    <div id="division-problem">
+        <p id="question"></p>
+        <div id="answerInputs">
+            <input type="number" id="quotient" placeholder="Quotient">
+            <input type="number" id="remainder" placeholder="Remainder">
+        </div>
+    </div>
+    <div class="button-container">
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
+    </div>
+    <p id="feedback"></p>
+    
+    <%- include('partials/logs') %>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/long-division.js"></script> 

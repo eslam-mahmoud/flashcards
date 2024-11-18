@@ -1,0 +1,6 @@
+<div class="header">
+    <a href="<%= locals.backLink || '/' %>" class="backLink"><%= locals.backText || 'Home' %></a>
+    <% if (locals.showScore !== false) { %>
+        <p id="score">Score: 0/0</p>
+    <% } %>
+</div>

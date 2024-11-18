@@ -1,0 +1,18 @@
+<div class="container">
+    <%- include('partials/header') %>
+        <h2>Fraction Practice</h2>
+        <div id="question">
+            <canvas id="shapeCanvas" width="300" height="300"></canvas>
+        </div>
+        <div class="input-section" id="answerInputs">
+            <input type="text" id="answer" placeholder="e.g. 1/2">
+            <div class="button-container">
+                <button id="submitAnswer">Submit</button>
+                <button id="newQuestion">New Question</button>
+            </div>
+        </div>
+        <%- include('partials/feedback') %>
+</div>
+
+<%- contentFor('scripts') %>
+    <script src="/js/fractions.js"></script>

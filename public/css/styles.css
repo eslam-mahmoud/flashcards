@@ -1,0 +1,513 @@
+/* Base styles */
+:root {
+    --primary: #FF6B6B;     /* Coral pink */
+    --secondary: #4ECDC4;   /* Turquoise */
+    --accent: #FFE66D;      /* Sunny yellow */
+    --background: #F7F9FC;  /* Light grayish blue */
+    --text: #2C3E50;       /* Dark blue gray */
+    --success: #2ECC71;    /* Emerald green */
+    --error: #E74C3C;      /* Soft red */
+}
+
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    background-color: #FFF;
+    border-radius: 25px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    border: 3px solid var(--primary);
+}
+
+/* Typography */
+h1, h2 {
+    color: var(--primary);
+    text-align: center;
+    font-size: 2.5em;
+    /* margin-bottom: 30px; */
+    margin: 0;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.activity-btn, button {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    font-weight: bold;
+    margin: 0;
+}
+
+.activity-btn:hover, button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Activity buttons specific colors */
+.ar-alpha-btn { background-color: #FF6B6B; }
+.math-btn { background-color: #4ECDC4; }
+.fraction-btn { background-color: #FFE66D; color: var(--text); }
+.clock-btn { background-color: #95E1D3; }
+.operations-btn { background-color: #A8E6CF; }
+.fractions-btn { background-color: #FF8B94; }
+.words-btn { background-color: #DCEDC1; color: var(--text); }
+.long-division-btn { background-color: #FFB7B2; }
+
+/* Input fields */
+input[type="number"], input[type="text"] {
+    border: 3px solid var(--secondary);
+    border-radius: 15px;
+    padding: 15px;
+    font-size: 1.2em;
+    background-color: white;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    border-color: var(--primary);
+    outline: none;
+}
+
+/* Feedback messages */
+#feedback {
+    font-size: 2em;
+    text-align: center;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 15px;
+    animation: bounce 0.5s ease infinite;
+}
+
+/* Radio and Checkbox styles */
+.checkboxLabel {
+    display: inline-block;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.checkboxLabel span {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: white;
+    border: 3px solid var(--secondary);
+    border-radius: 15px;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+}
+
+.checkboxLabel input[type="checkbox"]:checked + span,
+.checkboxLabel input[type="radio"]:checked + span {
+    background-color: var(--secondary);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Score display */
+#score {
+    font-size: 1.3em;
+    color: var(--primary);
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Navigation */
+.backLink {
+    color: var(--primary);
+    font-size: 1.3em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.backLink:hover {
+    color: var(--secondary);
+}
+
+/* Modal styles */
+.modal {
+    background-color: rgba(0,0,0,0.8);
+    border-radius: 25px;
+    padding: 20px;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 30px;
+    border-radius: 25px;
+    border: 3px solid var(--primary);
+}
+
+/* Animations */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Clock specific styles */
+.clock {
+    width: 300px;
+    height: 300px;
+    border: 8px solid var(--primary);
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    background: white;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Clock numbers */
+.clock .number {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--text);
+}
+
+.clock .number span {
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    transform-origin: 50% 150px; /* Half of clock height */
+}
+
+/* Position each number */
+.clock .number1 span { transform: rotate(30deg); }
+.clock .number2 span { transform: rotate(60deg); }
+.clock .number3 span { transform: rotate(90deg); }
+.clock .number4 span { transform: rotate(120deg); }
+.clock .number5 span { transform: rotate(150deg); }
+.clock .number6 span { transform: rotate(180deg); }
+.clock .number7 span { transform: rotate(210deg); }
+.clock .number8 span { transform: rotate(240deg); }
+.clock .number9 span { transform: rotate(270deg); }
+.clock .number10 span { transform: rotate(300deg); }
+.clock .number11 span { transform: rotate(330deg); }
+.clock .number12 span { transform: rotate(0deg); }
+
+/* Clock hands */
+.clock .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    background-color: var(--text);
+    border-radius: 5px;
+}
+
+.clock .hour-hand {
+    width: 6px;
+    height: 30%;
+    background-color: var(--text);
+}
+
+.clock .minute-hand {
+    width: 4px;
+    height: 40%;
+    background-color: var(--primary);
+}
+
+/* Center dot */
+.clock::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 12px;
+    height: 12px;
+    background-color: var(--text);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Fraction display styles - shared between questions and inputs */
+.fraction-display, .fraction-input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.5em;
+}
+
+.fraction-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80px; /* Fixed width for consistency */
+}
+
+/* Question specific styles */
+#question {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.fraction-display .fraction-part {
+    position: relative;
+}
+
+.fraction-display .fraction-part::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    border-top: 2px solid var(--primary);
+}
+
+/* Input specific styles */
+.fraction-input {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.fraction-part hr {
+    width: 100%;
+    margin: 5px 0;
+    border: none;
+    border-top: 2px solid var(--primary);
+}
+
+/* Input fields for fractions */
+.fraction-input input[type="number"] {
+    width: 80px;
+    text-align: center;
+    padding: 8px;
+    border: 2px solid var(--secondary);
+    border-radius: 8px;
+    font-size: 1em;
+}
+
+#wholeNumber {
+    align-self: center;
+}
+
+/* Hide spinner buttons on number inputs */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .activity-btn {
+        font-size: 1.2em;
+        padding: 10px 20px;
+    }
+
+    h1, h2 {
+        font-size: 2em;
+    }
+
+    .clock {
+        width: 250px;
+        height: 250px;
+    }
+    
+    .fraction-input {
+        padding: 15px;
+        gap: 15px;
+    }
+    
+    .fraction-input input[type="number"] {
+        width: 50px;
+        height: 35px;
+    }
+
+    .clock .number span {
+        transform-origin: 50% 125px;
+    }
+}
+
+/* Splash page specific styles */
+.splash-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.intro-text {
+    font-size: 1.5em;
+    color: var(--text);
+    margin-bottom: 30px;
+}
+
+.activity-stack {
+    position: relative;
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.stack-btn {
+    display: block;
+    text-decoration: none;
+    padding: 15px 30px;
+    margin: 15px auto;
+    font-size: 1.3em;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    position: relative;
+}
+
+.stack-btn:hover {
+    transform: translateX(10px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Updated button colors with better contrast */
+.ar-alpha-btn { 
+    background-color: #FF6B6B;
+    z-index: 80;
+}
+
+.math-btn { 
+    background-color: #4ECDC4;
+    z-index: 70;
+}
+
+.fraction-btn { 
+    background-color: #FFE66D;
+    color: var(--text);
+    z-index: 60;
+}
+
+.clock-btn { 
+    background-color: #95E1D3;
+    z-index: 50;
+}
+
+.operations-btn { 
+    background-color: #A8E6CF;
+    z-index: 40;
+}
+
+.fractions-btn { 
+    background-color: #FF8B94;
+    z-index: 30;
+}
+
+.words-btn { 
+    background-color: #DCEDC1;
+    color: var(--text);
+    z-index: 20;
+}
+
+.long-division-btn { 
+    background-color: #FFB7B2;
+    z-index: 10;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .splash-container {
+        padding: 10px;
+    }
+    
+    .stack-btn {
+        width: 90%;
+        font-size: 1.2em;
+        padding: 12px 20px;
+    }
+}
+
+#logsModal {
+    display: none;
+    border: 3px solid var(--primary);
+}
+
+#game {
+    display: none;
+}
+
+/* Header styles */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Button container for centering */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+#answer {
+    /* center the input */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fraction-number {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.fraction-number .fraction {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+.fraction-number .fraction .numerator {
+    border-bottom: 1px solid var(--primary);
+}
+
+#answerInputs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 100%;
+}
+
+#words #question {
+    font-size: 4.5em;
+}
+
+.long-division #question {
+    font-size: 4.5em;
+}

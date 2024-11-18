@@ -6,7 +6,6 @@ let lastQuestion = null;
 function updateScore() {
     $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
 }
-var logs = [];
 
 // Helper function to get GCD for fraction simplification
 function gcd(a, b) {
@@ -80,12 +79,11 @@ function checkAnswer() {
     // add question and answer and feedback to logs
     const log = {
         time: new Date().toLocaleTimeString(),
-        question: $("#question").text(),
+        question: $("#question").html(),
         answer: correctAnswerText,
         userAnswer: `${userWhole} ${userNumerator}/${userDenominator}`,
         feedback: $("#feedback").text()
     };
-    logs.push(log);
     $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
 
     totalQuestions++;
@@ -116,12 +114,30 @@ function generateQuestion() {
     fraction2.numerator = Math.floor(Math.random() * (fraction2.denominator - 1)) + 1; // Ensures numerator < denominator
 
     // Display question
-    let questionText = '';
-    if (fraction1.whole > 0) questionText += `${fraction1.whole} `;
-    questionText += `<span class="fraction"><span class="numerator">${fraction1.numerator}</span><span class="denominator">${fraction1.denominator}</span></span> ${operation} `;
-    if (fraction2.whole > 0) questionText += `${fraction2.whole} `;
-    questionText += `<span class="fraction"><span class="numerator">${fraction2.numerator}</span><span class="denominator">${fraction2.denominator}</span></span> = ?`;
+    let questionText = '<div class="fraction-display">';
     
+    // First fraction
+    questionText += '<div class="fraction-number">';
+    if (fraction1.whole > 0) questionText += `<span class="whole">${fraction1.whole}</span>`;
+    questionText += '<div class="fraction-part">';
+    questionText += `<span class="numerator">${fraction1.numerator}</span>`;
+    questionText += `<span class="denominator">${fraction1.denominator}</span>`;
+    questionText += '</div></div>';
+
+    // Operation
+    questionText += `<span class="operation">${operation}</span>`;
+
+    // Second fraction
+    questionText += '<div class="fraction-number">';
+    if (fraction2.whole > 0) questionText += `<span class="whole">${fraction2.whole}</span>`;
+    questionText += '<div class="fraction-part">';
+    questionText += `<span class="numerator">${fraction2.numerator}</span>`;
+    questionText += `<span class="denominator">${fraction2.denominator}</span>`;
+    questionText += '</div></div>';
+
+    questionText += '<span class="operation">=</span>';
+    questionText += '</div>';
+
     $("#question").html(questionText);
 
     // Calculate answer
@@ -167,8 +183,11 @@ $(document).ready(function() {
     });
 
     // Back link click handler
-    $(".backLink").click(function(e) {
+    $("#game .backLink").click(function(e) {
         e.preventDefault();
+        correctAnswers = 0;
+        totalQuestions = 0;
+        updateScore();
         $("#game").hide();
         $("#settings").show();
     });
@@ -184,11 +203,6 @@ $(document).ready(function() {
         if (e.which === 13) {
             checkAnswer();
         }
-    });
-
-    $('#logs').on('click', function(e) {
-        e.preventDefault();
-        $('#logsModal').toggle();
     });
 
     // Add event listener for the new question button
