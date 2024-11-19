@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
 // EJS setup
 app.set('view engine', 'ejs');
@@ -31,7 +30,7 @@ app.get('/ar-alpha', (req, res) => {
 });
 
 // Add placeholder routes for other pages
-const pages = ['math', 'fraction', 'clock', 'operations', 'fractions', 'words', 'long-division'];
+const pages = ['math', 'fraction', 'clock', 'operations', 'fractions', 'words', 'long-division', 'ar-alpha', 'before-after'];
 pages.forEach(page => {
     app.get(`/${page}`, (req, res) => {
         res.render(page, {
@@ -40,13 +39,5 @@ pages.forEach(page => {
     });
 });
 
-if (process.env.NODE_ENV !== 'production') {
-    // run it in local
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
-}
-
-console.log('Server is running in serverless production');
 // export it for serverless
 export default app; 

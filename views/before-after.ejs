@@ -1,0 +1,35 @@
+<div id="settings" class="container">
+    <%- include('partials/header', { showScore: false }) %>
+    <h2>What Comes Next?</h2>
+    
+    <label>
+        Range of numbers:
+        <br/>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="10" checked> <span>0 - 10</span> </label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="100"> <span>0 - 100</span> </label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="1000"> <span>0 - 1000</span> </label>
+    </label>
+    <br><br>
+
+    <div class="button-container">
+        <button id="startButton">Start</button>
+    </div>
+</div>
+
+<div id="game" class="container">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
+    <h1 id="question"></h1>
+    <div id="answerInputs">
+        <input type="number" id="answer">
+    </div>
+    <br/>
+    <div class="button-container">
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
+    </div>
+    <%- include('partials/feedback') %>
+    <%- include('partials/logs') %>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/before-after.js"></script> 

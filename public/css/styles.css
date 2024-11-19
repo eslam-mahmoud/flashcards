@@ -69,6 +69,7 @@ h1, h2 {
 .fractions-btn { background-color: #FF8B94; }
 .words-btn { background-color: #DCEDC1; color: var(--text); }
 .long-division-btn { background-color: #FFB7B2; }
+.before-after-btn { background-color: #c0b2ff; }
 
 /* Input fields */
 input[type="number"], input[type="text"] {
