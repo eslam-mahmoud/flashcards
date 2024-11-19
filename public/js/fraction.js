@@ -97,6 +97,7 @@ function generateQuestion() {
     const allowMixedNumbers = $("#allowMixedNumbers").is(":checked");
     const operations = $(".operation:checked").map(function() { return this.value; }).get();
     const operation = operations[Math.floor(Math.random() * operations.length)];
+    const sameDenominator = $("#sameDenominator").is(":checked");
 
     // Generate fractions with numerator less than denominator
     let fraction1 = {
@@ -108,7 +109,7 @@ function generateQuestion() {
 
     let fraction2 = {
         whole: allowMixedNumbers ? Math.floor(Math.random() * 3) : 0,
-        denominator: Math.floor(Math.random() * 5) + 2,  // Generate denominator first (minimum 2)
+        denominator: sameDenominator? fraction1.denominator : (Math.floor(Math.random() * 5) + 2),  // Generate denominator first (minimum 2)
         numerator: 1  // Placeholder, will be set below
     };
     fraction2.numerator = Math.floor(Math.random() * (fraction2.denominator - 1)) + 1; // Ensures numerator < denominator
