@@ -70,6 +70,7 @@ h1, h2 {
 .words-btn { background-color: #DCEDC1; color: var(--text); }
 .long-division-btn { background-color: #FFB7B2; }
 .before-after-btn { background-color: #c0b2ff; }
+.sort-btn { background-color: #FFB7B2; }
 
 /* Input fields */
 input[type="number"], input[type="text"] {
