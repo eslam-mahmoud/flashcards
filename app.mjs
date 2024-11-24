@@ -30,7 +30,7 @@ app.get('/ar-alpha', (req, res) => {
 });
 
 // Add placeholder routes for other pages
-const pages = ['math', 'fraction', 'clock', 'operations', 'fractions', 'words', 'long-division', 'ar-alpha', 'before-after'];
+const pages = ['sort', 'math', 'fraction', 'clock', 'operations', 'fractions', 'words', 'long-division', 'ar-alpha', 'before-after'];
 pages.forEach(page => {
     app.get(`/${page}`, (req, res) => {
         res.render(page, {

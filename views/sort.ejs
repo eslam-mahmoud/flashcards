@@ -1,0 +1,36 @@
+<div id="settings" class="container">
+    <%- include('partials/header', { showScore: false }) %>
+    <h2>Sort the Numbers</h2>
+    
+    <label>
+        Range of numbers:
+        <br/>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="10" checked> Easy (0-10)</label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="99"> Medium (10-99)</label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="999"> Hard (100-999)</label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="9999"> Advanced (1000-9999)</label>
+    </label>
+    <br><br>
+
+    <div class="button-container">
+        <button id="startButton">Start</button>
+    </div>
+</div>
+
+<div id="game" class="container" style="display:none;">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
+    <h1 id="question"></h1>
+    <div id="answerInputs">
+        <input type="text" id="answer" placeholder="Enter numbers separated by commas">
+    </div>
+    <br/>
+    <div class="button-container">
+        <button id="submitAnswer">Submit</button>
+        <button id="newQuestion">New Question</button>
+    </div>
+    <%- include('partials/feedback') %>
+    <%- include('partials/logs') %>
+</div>
+
+<%- contentFor('scripts') %>
+<script src="/js/sort.js"></script> 
