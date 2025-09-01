@@ -1,5 +1,12 @@
 let currentNumber;
 let correctAnswer;
+let totalQuestions = 0;
+let correctAnswers = 0;
+
+// Update the score display
+function updateScore() {
+    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
+}
 
 function checkAnswer() {
     const userAnswer = parseInt($("#answer").val());
@@ -28,6 +35,7 @@ function checkAnswer() {
     $("#newQuestion").show();
     $("#newQuestion").focus();
     $("#feedback").show();
+    $("#submitAnswer").hide();
     updateScore();
 }
 
@@ -55,4 +63,29 @@ function generateQuestion() {
 }
 
 $(document).ready(function () {
+    $("#submitAnswer").on("click", function() {
+        checkAnswer();
+    });
+
+    $("#newQuestion").on("click", function() {
+        generateQuestion();
+    });
+
+    $("#startButton").on("click", function(e) {
+        e.preventDefault();
+        $("#settings").hide();
+        $("#game").show();
+        generateQuestion();
+    });
+
+    // Handle back button click
+    $(".backLink").on("click", function(e) {
+        if ($(this).attr("href") === "#settings") {
+            e.preventDefault();
+            $("#game").hide();
+            $("#settings").show();
+            // clear logs content
+            $("#logsContent").empty();
+        }
+    });
 });
