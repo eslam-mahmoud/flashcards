@@ -63,3 +63,4 @@ temp/
 .env
 .env.test
 .env.production 
+lambda-updater.zip
