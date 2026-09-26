@@ -1,35 +1,27 @@
 <div id="settings" class="container">
     <%- include('partials/header', { showScore: false }) %>
-    <h2>What Comes Next?</h2>
-    
-    <label>
-        Range of numbers:
-        <br/>
-        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="10" checked> <span>0 - 10</span> </label>
-        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="100"> <span>0 - 100</span> </label>
-        <label class="checkboxLabel"><input type="radio" name="numberRange" class="main-number" value="1000"> <span>0 - 1000</span> </label>
-    </label>
-    <br><br>
+    <h2>Before or After?</h2>
 
-    <div class="button-container">
-        <button id="startButton">Start</button>
+    <div class="setting-group">
+        <p class="setting-title">Range of numbers:</p>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="10" checked> <span>0 - 10</span></label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="100"> <span>0 - 100</span></label>
+        <label class="checkboxLabel"><input type="radio" name="numberRange" value="1000"> <span>0 - 1000</span></label>
     </div>
+
+    <%- include('partials/start') %>
 </div>
 
-<div id="game" class="container" style="display:none;">
-    <%- include('partials/header', { backLink: '#settings', backText: 'Back' }) %>
+<div id="game" class="container">
+    <%- include('partials/header', { backLink: '#', backText: 'Back' }) %>
     <h1 id="question"></h1>
     <div id="answerInputs">
-        <input type="number" id="answer">
+        <input type="number" id="answer" inputmode="numeric" aria-label="Answer">
     </div>
-    <br/>
-    <div class="button-container">
-        <button id="submitAnswer">Submit</button>
-        <button id="newQuestion">New Question</button>
-    </div>
+    <%- include('partials/answer-buttons') %>
     <%- include('partials/feedback') %>
     <%- include('partials/logs') %>
 </div>
 
 <%- contentFor('scripts') %>
-<script src="/js/before-after.js"></script> 
+<script src="/js/before-after.js"></script>

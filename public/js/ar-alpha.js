@@ -1,8 +1,10 @@
+// Letters that never join to the following letter (أ د ذ ر ز و) have no
+// connecting stroke after them in the beginning and middle forms.
 const ar_alphabet = [
     {
         "letter": "أ",
-        "beginning": "أـ",
-        "middle": "ـأـ",
+        "beginning": "أ",
+        "middle": "ـأ",
         "end": "ـأ"
     },
     {
@@ -43,26 +45,26 @@ const ar_alphabet = [
     },
     {
         "letter": "د",
-        "beginning": "دـ",
-        "middle": "ـدـ",
+        "beginning": "د",
+        "middle": "ـد",
         "end": "ـد"
     },
     {
         "letter": "ذ",
-        "beginning": "ذـ",
-        "middle": "ـذـ",
+        "beginning": "ذ",
+        "middle": "ـذ",
         "end": "ـذ"
     },
     {
         "letter": "ر",
-        "beginning": "رـ",
-        "middle": "ـرـ",
+        "beginning": "ر",
+        "middle": "ـر",
         "end": "ـر"
     },
     {
         "letter": "ز",
-        "beginning": "زـ",
-        "middle": "ـزـ",
+        "beginning": "ز",
+        "middle": "ـز",
         "end": "ـز"
     },
     {
@@ -157,8 +159,8 @@ const ar_alphabet = [
     },
     {
         "letter": "و",
-        "beginning": "وـ",
-        "middle": "ـوـ",
+        "beginning": "و",
+        "middle": "ـو",
         "end": "ـو"
     },
     {
@@ -167,43 +169,31 @@ const ar_alphabet = [
         "middle": "ـيـ",
         "end": "ـي"
     }
-]
+];
 
-// on load select random word from words.grade_1, display it and add event listener on .submitAnswer
-$(document).ready(function() {
-    $("#newQuestion").click(function() {
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-        setQuestion();
-    });
-    setQuestion();
-});
-var letter_index = -1;
-function setQuestion() {
-    // if letterType value == random select random letter else select letter by index and increment index
-    if ($("input[name='letterType']:checked").val() == "random") {
-        letter_index = Math.floor(Math.random() * ar_alphabet.length);
-    } else {
-        letter_index = (letter_index + 1) % ar_alphabet.length;
-    }
-    var letter = ar_alphabet[letter_index];
-    // if singleLetter checkbox checked dispaly letter.letter else display beginning, middle, end randomly
-    if ($("#singleLetter").is(":checked")) {
-        $("#question").text(`${letter.letter}`);
-    } else {
-        var random = Math.floor(Math.random() * 4);
-        if (random == 0) {
-            $("#question").text(`${letter.beginning}`);
-        } else if (random == 1) {
-            $("#question").text(`${letter.middle}`);
-        } else if (random == 2) {
-            $("#question").text(`${letter.end}`);
-        } else {
-            $("#question").text(`${letter.middle}`);
-        }
-    }
-    $("#newQuestion").show();
+const LETTER_FORMS = ['beginning', 'middle', 'end'];
+let letterIndex = -1;
+
+function showLetter() {
+    const letter = ar_alphabet[letterIndex];
+    const text = $('#singleLetter').is(':checked') ? letter.letter : letter[App.pick(LETTER_FORMS)];
+    $('#question').text(text);
 }
+
+function nextLetter() {
+    if ($("input[name='letterType']:checked").val() === 'random') {
+        letterIndex = App.pickDifferent([...ar_alphabet.keys()], letterIndex);
+    } else {
+        letterIndex = (letterIndex + 1) % ar_alphabet.length;
+    }
+    showLetter();
+}
+
+$(function () {
+    $('#newQuestion').on('click', function () {
+        App.celebrate();
+        nextLetter();
+    });
+    $('#singleLetter').on('change', showLetter);
+    nextLetter();
+});

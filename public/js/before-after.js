@@ -1,91 +1,36 @@
-let currentNumber;
-let correctAnswer;
-let totalQuestions = 0;
-let correctAnswers = 0;
+let currentQuestion = null;
 
-// Update the score display
-function updateScore() {
-    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
+function generateQuestion() {
+    const range = parseInt($("input[name='numberRange']:checked").val(), 10);
+    let question;
+    do {
+        const direction = Math.random() < 0.5 ? 'before' : 'after';
+        // keep both the number and the answer inside the chosen range (no negatives)
+        const number = direction === 'before' ? App.randInt(1, range) : App.randInt(0, range - 1);
+        question = { direction, number, answer: direction === 'before' ? number - 1 : number + 1 };
+    } while (currentQuestion && question.direction === currentQuestion.direction && question.number === currentQuestion.number);
+    currentQuestion = question;
+    question.text = `What comes ${question.direction} ${question.number}?`;
+    $('#question').text(question.text);
+    $('#answer').val('');
 }
 
 function checkAnswer() {
-    const userAnswer = parseInt($("#answer").val());
-
-    if (userAnswer === correctAnswer) {
-        $("#feedback").text("Correct 👍").css("color", "green");
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-        correctAnswers++;
-    } else {
-        $("#feedback").text(`Wrong! The correct answer is ${correctAnswer}.`).css("color", "red");
-    }
-
-    // Log the question and answer
-    const log = {
-        time: new Date().toLocaleTimeString(),
-        question:  $("#question").text(),
-        userAnswer: userAnswer,
-        feedback: $("#feedback").text()
+    const raw = $('#answer').val().trim();
+    if (raw === '') return null;
+    return {
+        correct: Number(raw) === currentQuestion.answer,
+        question: currentQuestion.text,
+        userAnswer: raw,
+        correctAnswer: currentQuestion.answer
     };
-    $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
-
-    $("#newQuestion").show();
-    $("#newQuestion").focus();
-    $("#feedback").show();
-    $("#submitAnswer").hide();
-    updateScore();
 }
 
-function generateQuestion() {
-    totalQuestions++;
-    const numberRange = parseInt($("input[name='numberRange']:checked").val());
-    beforeOrAfter = "after"
-    if (Math.floor(Math.random() * 10) % 2 == 0) {
-        beforeOrAfter = "before"
-        currentNumber = Math.floor(Math.random() * (numberRange + 1));
-        correctAnswer = currentNumber - 1;
-    } else {
-        currentNumber = Math.floor(Math.random() * (numberRange + 1));
-        correctAnswer = currentNumber + 1;
-    }
-
-    $("#question").text(`What comes ${beforeOrAfter} ${currentNumber}?`);
-    $("#answer").val("");
-    $("#question, #answer, #submitAnswer").show();
-    $("#newQuestion").hide();
-    $("#submitAnswer").show();
-    $("#feedback").text("");
-    $("#answer").focus();
-    updateScore();
-}
-
-$(document).ready(function () {
-    $("#submitAnswer").on("click", function() {
-        checkAnswer();
-    });
-
-    $("#newQuestion").on("click", function() {
-        generateQuestion();
-    });
-
-    $("#startButton").on("click", function(e) {
-        e.preventDefault();
-        $("#settings").hide();
-        $("#game").show();
-        generateQuestion();
-    });
-
-    // Handle back button click
-    $(".backLink").on("click", function(e) {
-        if ($(this).attr("href") === "#settings") {
-            e.preventDefault();
-            $("#game").hide();
-            $("#settings").show();
-            // clear logs content
-            $("#logsContent").empty();
-        }
+$(function () {
+    App.quiz({
+        generate: generateQuestion,
+        check: checkAnswer,
+        inputs: '#answer',
+        focus: '#answer'
     });
 });

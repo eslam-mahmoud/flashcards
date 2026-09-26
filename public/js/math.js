@@ -1,174 +1,75 @@
-let currentAnswer;
-let correctAnswers = 0;
-let totalQuestions = 0;
-let lastQuestion = {
-    operation: null,
-    mainNumber: null,
-    randomNum: null
-};
+const OPERATION_SYMBOLS = { '+': '+', '-': '−', '*': '×', '/': '÷' };
 
-// Update the score display
-function updateScore() {
-    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
+let currentQuestion = null;
+
+function selectedOperations() {
+    return $('.operation:checked').map(function () { return this.value; }).get();
 }
 
-function checkAnswer() {
-    const userAnswer = parseFloat($("#answer").val());
-
-    if (userAnswer === currentAnswer) {
-        $("#feedback").text("Correct 👍").css("color", "green");
-        $("#submitAnswer").hide();
-        correctAnswers++;
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-    } else {
-        $("#feedback").text(`Wrong! The correct answer is ${currentAnswer}.`).css("color", "red");
+// "range" limits every number shown: subtraction never goes negative and
+// division always has a whole-number answer with the dividend inside the range.
+function buildQuestion(operation, range) {
+    switch (operation) {
+        case '+': {
+            const a = App.randInt(0, range);
+            const b = App.randInt(0, range);
+            return { a, b, answer: a + b };
+        }
+        case '-': {
+            const a = App.randInt(0, range);
+            const b = App.randInt(0, a);
+            return { a, b, answer: a - b };
+        }
+        case '*': {
+            const a = App.randInt(0, range);
+            const b = App.randInt(0, range);
+            return { a, b, answer: a * b };
+        }
+        case '/': {
+            const b = App.randInt(1, range);
+            const quotient = App.randInt(0, Math.floor(range / b));
+            return { a: b * quotient, b, answer: quotient };
+        }
     }
-    // add question and answer and feedback to logs
-    const log = {
-        time: new Date().toLocaleTimeString(),
-        question: $("#question").text(),
-        answer: currentAnswer,
-        userAnswer: userAnswer,
-        feedback: $("#feedback").text()
-    };
-    $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
-
-
-    totalQuestions++;
-    updateScore();
-
-    $("#newQuestion").show();
-    $("#newQuestion").focus();
-    $("#feedback").show();
 }
 
 function generateQuestion() {
-    $("#answer").val("");
-    // get input radio value where name="numberRange"
-    const numberRange = parseInt($("input[name='numberRange']:checked").val());
-
-    const operations = $(".operation:checked").map(function() { return this.value; }).get();
-
-    let selectedOperation;
-    let selectedMainNumber;
-    let randomNum;
-
+    const range = parseInt($("input[name='numberRange']:checked").val(), 10);
+    const operations = selectedOperations();
+    let question;
     do {
-        selectedOperation = operations[Math.floor(Math.random() * operations.length)];
-        selectedMainNumber = Math.floor(Math.random() * (numberRange+1));
-
-        switch(selectedOperation) {
-            case "+":
-                randomNum = Math.floor(Math.random() * (numberRange + 1));
-                break;
-            case "-":
-                do {
-                    randomNum = Math.floor(Math.random() * (numberRange + 1));
-                    console.log(selectedMainNumber, randomNum);
-                } while(randomNum > selectedMainNumber); // Ensure randomNum is not greater than selectedMainNumber
-                break;
-            case "*":
-                randomNum = Math.floor(Math.random() * (numberRange + 1));
-                break;
-            case "/":
-                do {
-                    // First, get a non-zero random number within range
-                    randomNum = Math.floor(Math.random() * numberRange) + 1;
-                    // Generate selectedMainNumber as a multiple of randomNum to ensure whole number division
-                    selectedMainNumber = randomNum * Math.floor(Math.random() * (numberRange / randomNum + 1));
-                } while(selectedMainNumber > numberRange); // Ensure we stay within the selected range
-                break;
-        }
+        const operation = App.pick(operations);
+        question = { operation, ...buildQuestion(operation, range) };
     } while (
-        selectedOperation === lastQuestion.operation &&
-        selectedMainNumber === lastQuestion.mainNumber &&
-        randomNum === lastQuestion.randomNum
+        currentQuestion &&
+        question.operation === currentQuestion.operation &&
+        question.a === currentQuestion.a &&
+        question.b === currentQuestion.b
     );
+    currentQuestion = question;
+    question.text = `${question.a} ${OPERATION_SYMBOLS[question.operation]} ${question.b} = ?`;
+    $('#question').text(question.text);
+    $('#answer').val('');
+}
 
-    lastQuestion = {
-        operation: selectedOperation,
-        mainNumber: selectedMainNumber,
-        randomNum: randomNum
+function checkAnswer() {
+    const raw = $('#answer').val().trim();
+    if (raw === '') return null;
+    const userAnswer = Number(raw);
+    return {
+        correct: userAnswer === currentQuestion.answer,
+        question: currentQuestion.text,
+        userAnswer: raw,
+        correctAnswer: currentQuestion.answer
     };
-
-    switch(selectedOperation) {
-        case "+":
-            $("#question").text(`${selectedMainNumber} + ${randomNum} = ?`);
-            currentAnswer = selectedMainNumber + randomNum;
-            break;
-        case "-":
-            $("#question").text(`${selectedMainNumber} - ${randomNum} = ?`);
-            currentAnswer = selectedMainNumber - randomNum;
-            break;
-        case "*":
-            $("#question").text(`${selectedMainNumber} x ${randomNum} = ?`);
-            currentAnswer = selectedMainNumber * randomNum;
-            break;
-        case "/":
-            $("#question").text(`${selectedMainNumber} ÷ ${randomNum} = ?`);
-            currentAnswer = selectedMainNumber / randomNum;
-            break;
-    }
-
-    // Display game elements and hide settings
-    $("#question, #answer, #submitAnswer").show();
-    $("#newQuestion").hide();
-    $("#submitAnswer").show();
-    $("#feedback").text("");
-    $("#answer").focus();
 }
 
-function populateMaxNumbers() {
-    for (let i = 1; i <= 100; i++) {
-        $('#maxNumber').append(`<option value="${i}" ${i==10?'selected="selected"':''}>${i}</option>`);
-    }
-}
-
-$(document).ready(function() {
-    populateMaxNumbers();
-
-    $("#submitAnswer").on("click", function() {
-        checkAnswer();
-    });
-
-    $("#newQuestion").on("click", function() {
-        generateQuestion();
-    });
-
-    $("#answer").on("keypress", function(e) {
-        if (e.which === 13) {
-            e.preventDefault();
-            checkAnswer();
-        }
-    });
-
-    $("#startButton").on("click", function(e) {
-        e.preventDefault();
-        $("#settings").hide();
-        $("#game").show();
-        generateQuestion();
-    });
-
-    $("#game .backLink").on("click", function(e) {
-        e.preventDefault();
-
-        correctAnswers = 0;
-        totalQuestions = 0;
-        updateScore();
-
-        $("#settings").show();
-        $("#game").hide();
-        $("#question, #answer, #submitAnswer, #feedback, #newQuestion").hide();
-
-        // Reset last question to ensure variety
-        lastQuestion = {
-            operation: null,
-            mainNumber: null,
-            randomNum: null
-        };
+$(function () {
+    App.quiz({
+        validateSettings: () => selectedOperations().length ? null : 'Please select at least one operation!',
+        generate: generateQuestion,
+        check: checkAnswer,
+        inputs: '#answer',
+        focus: '#answer'
     });
 });
