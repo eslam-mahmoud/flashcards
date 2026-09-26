@@ -1,96 +1,50 @@
-let currentNumbers = [];
-let currentOrder;
-let totalQuestions = 0;
-let correctAnswers = 0;
+const RANGES = {
+    easy: [0, 10],
+    medium: [10, 99],
+    hard: [100, 999],
+    advanced: [1000, 9999]
+};
 
-// Update the score display
-function updateScore() {
-    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
+let currentQuestion = null;
+
+function generateQuestion() {
+    const [min, max] = RANGES[$("input[name='numberRange']:checked").val()];
+    const count = App.randInt(5, 6);
+    const numbers = new Set();
+    while (numbers.size < count) {
+        numbers.add(App.randInt(min, max));
+    }
+    const shuffled = [...numbers];
+    const order = Math.random() < 0.5 ? 'ascending' : 'descending';
+    const sorted = shuffled.slice().sort((a, b) => order === 'ascending' ? a - b : b - a);
+    // make sure the numbers are not already shown in the answer order
+    if (shuffled.join() === sorted.join()) shuffled.reverse();
+
+    currentQuestion = { numbers: shuffled, order, sorted };
+    const badge = order === 'ascending'
+        ? '<span class="badge badge-success">Smallest → Largest</span>'
+        : '<span class="badge badge-danger">Largest → Smallest</span>';
+    $('#question').html(`${shuffled.join(', ')}<br>${badge}`);
+    $('#answer').val('');
 }
 
 function checkAnswer() {
-    // get user input
-    const userAnswer = $("#answer").val().split(',').map(num => parseInt(num));
-    // sort the currentNumbers based on the currentOrder
-    const correctAnswer = currentNumbers.slice().sort((a, b) => currentOrder === "ascending" ? a - b : b - a);
-    const isCorrect = JSON.stringify(userAnswer) === JSON.stringify(correctAnswer);
-
-    if (isCorrect) {
-        $("#feedback").text("Correct 👍").css("color", "green");
-        correctAnswers++;
-    } else {
-        $("#feedback").text(`Wrong! The correct order is ${JSON.stringify(correctAnswer)}.`).css("color", "red");
-    }
-
-    totalQuestions++;
-    updateScore();
-    $("#newQuestion").show();
-    $("#newQuestion").focus();
-    $("#feedback").show();
-    $("#submitAnswer").hide()
-
-    const log = {
-        time: new Date().toLocaleTimeString(),
-        question: $("#question").text(),
-        userAnswer: userAnswer.toString(),
-        feedback: $("#feedback").text()
+    const raw = $('#answer').val().trim();
+    if (raw === '') return null;
+    const userNumbers = raw.split(/[\s,]+/).filter(Boolean).map(Number);
+    return {
+        correct: userNumbers.join() === currentQuestion.sorted.join(),
+        question: `${currentQuestion.numbers.join(', ')} (${currentQuestion.order})`,
+        userAnswer: userNumbers.join(', '),
+        correctAnswer: currentQuestion.sorted.join(', ')
     };
-    $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
 }
 
-function generateQuestion() {
-    $("#answer").val("");
-    const numberRange = parseInt($("input[name='numberRange']:checked").val());
-    const numCount = Math.floor(Math.random() * 2) + 5; // Randomly choose between 5 or 6 numbers
-    currentNumbers = Array.from({ length: numCount }, () => Math.floor(Math.random() * (numberRange + 1)));
-    currentOrder = Math.random() > 0.5 ? "ascending" : "descending";
-
-    $("#question").html(`Sort these numbers: ${currentNumbers.join(', ')} ${currentOrder === "ascending" ? "<span class='badge badge-success'>Ascending</span>" : "<span class='badge badge-danger'>Descending</span>"}`);
-    $("#question, #answer, #submitAnswer").show();
-    $("#newQuestion").hide();
-    $("#feedback").text("");
-    $("#answer").focus();
-    $("#submitAnswer").show()
-}
-
-function populateMaxNumbers() {
-    const ranges = [
-        { label: 'Easy (0-10)', value: 10 },
-        { label: 'Medium (10-99)', value: 99 },
-        { label: 'Hard (100-999)', value: 999 },
-        { label: 'Advanced (1000-9999)', value: 9999 }
-    ];
-    ranges.forEach(range => {
-        $('#maxNumber').append(`<option value="${range.value}">${range.label}</option>`);
+$(function () {
+    App.quiz({
+        generate: generateQuestion,
+        check: checkAnswer,
+        inputs: '#answer',
+        focus: '#answer'
     });
-}
-
-$(document).ready(function() {
-    populateMaxNumbers();
-
-    $("#submitAnswer").on("click", function() {
-        checkAnswer();
-    });
-
-    $("#newQuestion").on("click", function() {
-        generateQuestion();
-    });
-
-    $("#startButton").on("click", function(e) {
-        e.preventDefault();
-        $("#settings").hide();
-        $("#game").show();
-        generateQuestion();
-    });
-
-    // Handle back button click
-    $(".backLink").on("click", function(e) {
-        if ($(this).attr("href") === "#settings") {
-            e.preventDefault();
-            $("#game").hide();
-            $("#settings").show();
-            // clear logs content
-            $("#logsContent").empty();
-        }
-    });
-}); 
+});

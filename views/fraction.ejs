@@ -1,29 +1,21 @@
 <div id="settings" class="container">
     <%- include('partials/header', { showScore: false }) %>
-    <h2>Fraction Practice</h2>
-    
-    <label>
-        Operation:
-        <br/>
+    <h2>Fraction Math</h2>
+
+    <div class="setting-group">
+        <p class="setting-title">Operation:</p>
         <label class="checkboxLabel"><input type="checkbox" class="operation" value="+" checked> <span>+</span></label>
-        <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> <span>-</span></label>
-    </label>
-    <br><br>
-
-    <label class="checkboxLabel">
-        <input type="checkbox" id="allowMixedNumbers"> <span>Allow Mixed Numbers (e.g., 1 2/3)</span>
-    </label>
-    <label class="checkboxLabel">
-        <input type="checkbox" id="sameDenominator"> <span>Same denominator</span>
-    </label>
-    <label class="checkboxLabel">
-        <input type="checkbox" id="allowNegativeResults"> <span>Allow Negative Results</span>
-    </label> 
-    <br><br>
-
-    <div class="button-container">
-        <button id="startButton">Start</button>
+        <label class="checkboxLabel"><input type="checkbox" class="operation" value="-"> <span>−</span></label>
     </div>
+
+    <div class="setting-group">
+        <p class="setting-title">Options:</p>
+        <label class="checkboxLabel"><input type="checkbox" id="allowMixedNumbers"> <span>Mixed numbers (e.g. 1 2/3)</span></label>
+        <label class="checkboxLabel"><input type="checkbox" id="sameDenominator"> <span>Same denominator</span></label>
+        <label class="checkboxLabel"><input type="checkbox" id="allowNegativeResults"> <span>Allow negative results</span></label>
+    </div>
+
+    <%- include('partials/start') %>
 </div>
 
 <div id="game" class="container">
@@ -31,22 +23,19 @@
     <h1 id="question"></h1>
     <div id="answerInputs">
         <div class="fraction-input">
-            <input type="number" id="wholeNumber" placeholder="Whole">
+            <input type="number" id="wholeNumber" placeholder="Whole" aria-label="Whole number">
             <div class="fraction-part">
-                <input type="number" id="numerator" placeholder="Numerator">
+                <input type="number" id="numerator" placeholder="Top" aria-label="Numerator">
                 <hr>
-                <input type="number" id="denominator" placeholder="Denominator">
+                <input type="number" id="denominator" placeholder="Bottom" aria-label="Denominator">
             </div>
         </div>
     </div>
-    <br/>
-    <div class="button-container">
-        <button id="submitAnswer">Submit</button>
-        <button id="newQuestion">New Question</button>
-    </div>
+    <p class="hint">Any equivalent answer counts, e.g. 2/4 or 1/2.</p>
+    <%- include('partials/answer-buttons') %>
     <%- include('partials/feedback') %>
     <%- include('partials/logs') %>
 </div>
 
 <%- contentFor('scripts') %>
-<script src="/js/fraction.js"></script> 
+<script src="/js/fraction.js"></script>

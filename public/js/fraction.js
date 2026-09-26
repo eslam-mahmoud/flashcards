@@ -1,235 +1,107 @@
-let currentAnswer = { whole: 0, numerator: 0, denominator: 1 };
-let correctAnswers = 0;
-let totalQuestions = 0;
-let lastQuestion = null;
-// Update the score display
-function updateScore() {
-    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
+// Fractions are kept as improper fractions { n, d } with d > 0.
+let currentQuestion = null;
+
+function selectedOperations() {
+    return $('.operation:checked').map(function () { return this.value; }).get();
 }
 
-// Helper function to get GCD for fraction simplification
-function gcd(a, b) {
-    a = Math.abs(a);
-    b = Math.abs(b);
-    while (b) {
-        let t = b;
-        b = a % b;
-        a = t;
-    }
-    return a;
+function randomMixed(allowMixed, denominator) {
+    const d = denominator || App.randInt(2, 6);
+    return { whole: allowMixed ? App.randInt(0, 2) : 0, n: App.randInt(1, d - 1), d };
 }
 
-// Convert improper fraction to mixed number
-function improperToMixed(numerator, denominator) {
-    if (numerator === 0) return { whole: 0, numerator: 0, denominator: 1 };
-    if (denominator > numerator) return { whole: 0, numerator: numerator, denominator: denominator };
-
-    let whole = numerator < 0 ? Math.ceil(numerator / denominator) : Math.floor(numerator / denominator);
-    let newNumerator = numerator % denominator;
-    return { whole: whole, numerator: newNumerator, denominator: denominator };
+function toImproper(mixed) {
+    return { n: mixed.whole * mixed.d + mixed.n, d: mixed.d };
 }
 
-// Simplify fraction
-function simplifyFraction(numberObject) {
-    // Convert to improper fraction
-    numerator = numberObject.numerator + (numberObject.whole * numberObject.denominator);
-
-    // Find GCD and simplify
-    const divisor = gcd(numerator, numberObject.denominator);
-    numerator = numerator / divisor;
-    denominator = numberObject.denominator / divisor;
-
-    // Convert back to mixed number
-    return { numerator: numerator, denominator: denominator };
+function simplify(fraction) {
+    const divisor = App.gcd(fraction.n, fraction.d) || 1;
+    return { n: fraction.n / divisor, d: fraction.d / divisor };
 }
 
-function checkAnswer() {
-    const userWhole = parseInt($("#wholeNumber").val()) || 0;
-    const userNumerator = parseInt($("#numerator").val()) || 0;
-    const userDenominator = parseInt($("#denominator").val()) || 1;
+// "7/6" -> "1 1/6", "-3/6" -> "-1/2", "4/2" -> "2"
+function formatFraction(fraction) {
+    const { n, d } = simplify(fraction);
+    const sign = n < 0 ? '-' : '';
+    const whole = Math.floor(Math.abs(n) / d);
+    const remainder = Math.abs(n) % d;
+    if (remainder === 0) return `${sign}${whole}`;
+    if (whole === 0) return `${sign}${remainder}/${d}`;
+    return `${sign}${whole} ${remainder}/${d}`;
+}
 
-    // Convert user answer to improper fraction for comparison
-    const userImproper = userNumerator + (userWhole * userDenominator);
-    const correctImproper = currentAnswer.numerator + (currentAnswer.whole * currentAnswer.denominator);
+function mixedText(mixed) {
+    return mixed.whole > 0 ? `${mixed.whole} ${mixed.n}/${mixed.d}` : `${mixed.n}/${mixed.d}`;
+}
 
-    // Compare the fractions by cross multiplication
-    const isCorrect = (userImproper * currentAnswer.denominator) === (correctImproper * userDenominator);
-    let correctAnswerText = '';
-    if (isCorrect) {
-        $("#feedback").html("Correct 👍").css("color", "green");
-        correctAnswers++;
-        confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 }
-        });
-        correctAnswerText = `${currentAnswer.whole} ${currentAnswer.numerator}/${currentAnswer.denominator}`;
-    } else {
-        const simplified = simplifyFraction(currentAnswer);
-        correctAnswerText += `${currentAnswer.whole} ${currentAnswer.numerator}/${currentAnswer.denominator}  `;
-        correctAnswerText += `simplified: ${simplified.numerator}/${simplified.denominator}`;
-        $("#feedback").html(`Wrong! The correct answer is ${correctAnswerText}`).css("color", "red");
-    }
-
-    // add question and answer and feedback to logs
-    const log = {
-        time: new Date().toLocaleTimeString(),
-        question: $("#question").html(),
-        answer: correctAnswerText,
-        userAnswer: `${userWhole} ${userNumerator}/${userDenominator}`,
-        feedback: $("#feedback").text()
-    };
-    $('#logsContent').append(`<p>${log.time}: ${log.question} (${log.userAnswer}) ${log.feedback}</p>`);
-
-    totalQuestions++;
-    updateScore();
-    $("#submitAnswer").hide();
-    $("#newQuestion").show();
-    $("#newQuestion").focus();
+function mixedHtml(mixed) {
+    let html = '<div class="fraction-number">';
+    if (mixed.whole > 0) html += `<span class="whole">${mixed.whole}</span>`;
+    html += `<div class="fraction-part"><span class="numerator">${mixed.n}</span><span class="denominator">${mixed.d}</span></div>`;
+    return html + '</div>';
 }
 
 function generateQuestion() {
-    const allowMixedNumbers = $("#allowMixedNumbers").is(":checked");
-    const operations = $(".operation:checked").map(function () { return this.value; }).get();
-    const operation = operations[Math.floor(Math.random() * operations.length)];
-    const sameDenominator = $("#sameDenominator").is(":checked");
-    const allowNegativeResults = $("#allowNegativeResults").is(":checked");
+    const allowMixed = $('#allowMixedNumbers').is(':checked');
+    const sameDenominator = $('#sameDenominator').is(':checked');
+    const allowNegative = $('#allowNegativeResults').is(':checked');
+    const operation = App.pick(selectedOperations());
 
-    // Generate fractions with numerator less than denominator
-    let fraction1 = {
-        whole: allowMixedNumbers ? Math.floor(Math.random() * 3) : 0,
-        denominator: Math.floor(Math.random() * 5) + 2,  // Generate denominator first (minimum 2)
-        numerator: 1  // Placeholder, will be set below
-    };
-    fraction1.numerator = Math.floor(Math.random() * (fraction1.denominator - 1)) + 1; // Ensures numerator < denominator
-    fraction1.total = fraction1.whole + (fraction1.numerator / fraction1.denominator)
+    let first = randomMixed(allowMixed);
+    let second = randomMixed(allowMixed, sameDenominator ? first.d : null);
+    const a = toImproper(first);
+    const b = toImproper(second);
 
-    let fraction2 = {
-        whole: allowMixedNumbers ? Math.floor(Math.random() * 3) : 0,
-        denominator: sameDenominator ? fraction1.denominator : (Math.floor(Math.random() * 5) + 2),  // Generate denominator first (minimum 2)
-        numerator: 1  // Placeholder, will be set below
-    };
-    fraction2.numerator = Math.floor(Math.random() * (fraction2.denominator - 1)) + 1; // Ensures numerator < denominator
-    fraction2.total = fraction2.whole + (fraction2.numerator / fraction2.denominator)
-
-    while (!allowNegativeResults && operation === '-' && fraction2.total > fraction1.total) {
-        let diff = Math.floor(fraction2.total - fraction1.total + 1)
-        let max = Math.floor(Math.random() * 10)
-        let adjustment = Math.floor(Math.random() * (max - diff + 1)) + diff;
-        fraction1.total += adjustment;
-        fraction1.whole += adjustment;
+    // Without negative results the bigger number goes first.
+    if (operation === '-' && !allowNegative && a.n * b.d < b.n * a.d) {
+        [first, second] = [second, first];
     }
 
-    // Display question
-    let questionText = '<div class="fraction-display">';
+    const x = toImproper(first);
+    const y = toImproper(second);
+    const numerator = operation === '+' ? x.n * y.d + y.n * x.d : x.n * y.d - y.n * x.d;
+    const symbol = operation === '+' ? '+' : '−';
 
-    // First fraction
-    questionText += '<div class="fraction-number">';
-    if (fraction1.whole > 0) questionText += `<span class="whole">${fraction1.whole}</span>`;
-    questionText += '<div class="fraction-part">';
-    questionText += `<span class="numerator">${fraction1.numerator}</span>`;
-    questionText += `<span class="denominator">${fraction1.denominator}</span>`;
-    questionText += '</div></div>';
+    currentQuestion = {
+        text: `${mixedText(first)} ${symbol} ${mixedText(second)}`,
+        answer: simplify({ n: numerator, d: x.d * y.d })
+    };
 
-    // Operation
-    questionText += `<span class="operation">${operation}</span>`;
-
-    // Second fraction
-    questionText += '<div class="fraction-number">';
-    if (fraction2.whole > 0) questionText += `<span class="whole">${fraction2.whole}</span>`;
-    questionText += '<div class="fraction-part">';
-    questionText += `<span class="numerator">${fraction2.numerator}</span>`;
-    questionText += `<span class="denominator">${fraction2.denominator}</span>`;
-    questionText += '</div></div>';
-
-    questionText += '<span class="operation">=</span>';
-    questionText += '</div>';
-
-    $("#question").html(questionText);
-
-    // Calculate answer
-    currentAnswer = calculateFractions(fraction1, fraction2, operation)
-
-    // Reset UI
-    $("#wholeNumber, #numerator, #denominator").val('');
-    $("#submitAnswer").show();
-    $("#newQuestion").hide();
-    $("#feedback").text('');
-    $("#wholeNumber").focus();
+    $('#question').html(
+        `<div class="fraction-display">${mixedHtml(first)}<span class="operation">${symbol}</span>${mixedHtml(second)}<span class="operation">=</span></div>`
+    );
+    $('#wholeNumber, #numerator, #denominator').val('');
 }
 
-function calculateFractions(fraction1, fraction2, operation) {
-    const fractionA = simplifyFraction(fraction1);
-    const fractionB = simplifyFraction(fraction2);
-    // Calculate the resulting fraction based on the operation
-    let resultNumerator, resultDenominator;
+function checkAnswer() {
+    const wholeRaw = $('#wholeNumber').val().trim();
+    const numRaw = $('#numerator').val().trim();
+    const denRaw = $('#denominator').val().trim();
+    if (wholeRaw === '' && numRaw === '') return null;
+    if (numRaw !== '' && (denRaw === '' || Number(denRaw) === 0)) return null;
 
-    if (operation === '+') {
-        resultNumerator =
-            fractionA.numerator * fractionB.denominator + fractionB.numerator * fractionA.denominator;
-    } else if (operation === '-') {
-        resultNumerator =
-            fractionA.numerator * fractionB.denominator - fractionB.numerator * fractionA.denominator;
-    } else {
-        throw new Error("Unsupported operation. Use '+' or '-'.");
-    }
+    const whole = wholeRaw === '' ? 0 : parseInt(wholeRaw, 10);
+    const num = numRaw === '' ? 0 : parseInt(numRaw, 10);
+    const den = numRaw === '' ? 1 : Math.abs(parseInt(denRaw, 10));
+    // "-1 1/6" means -(1 + 1/6)
+    const user = { n: whole < 0 ? whole * den - num : whole * den + num, d: den };
 
-    resultDenominator = fractionA.denominator * fractionB.denominator;
-
-    // Convert back to mixed fraction
-    return improperToMixed(resultNumerator, resultDenominator);
+    const answer = currentQuestion.answer;
+    const improperNote = Math.abs(answer.n) > answer.d && answer.n % answer.d !== 0 ? ` (= ${answer.n}/${answer.d})` : '';
+    return {
+        correct: user.n * answer.d === answer.n * user.d,
+        question: `${currentQuestion.text} =`,
+        userAnswer: numRaw === '' ? `${whole}` : `${wholeRaw ? whole + ' ' : ''}${num}/${den}`,
+        correctAnswer: formatFraction(answer) + improperNote
+    };
 }
 
-$(document).ready(function () {
-    // Hide game initially
-    $("#game").hide();
-
-    // Start button click handler
-    $("#startButton").click(function () {
-        const selectedOperations = $(".operation:checked");
-        if (selectedOperations.length === 0) {
-            alert("Please select at least one operation!");
-            return;
-        }
-        $("#settings").hide();
-        $("#game").show();
-        generateQuestion();
-    });
-
-    // Back link click handler
-    $("#game .backLink").click(function (e) {
-        e.preventDefault();
-        correctAnswers = 0;
-        totalQuestions = 0;
-        updateScore();
-        $("#game").hide();
-        $("#settings").show();
-    });
-
-    // Submit answer handler
-    $("#submitAnswer").click(checkAnswer);
-
-    // New question handler
-    $("#newQuestion").click(generateQuestion);
-
-    // Enter key handlers
-    $("#wholeNumber, #numerator, #denominator").keypress(function (e) {
-        if (e.which === 13) {
-            checkAnswer();
-        }
-    });
-
-    // Add event listener for the new question button
-    document.getElementById('newQuestion').addEventListener('click', () => {
-        // Clear previous inputs
-        document.getElementById('wholeNumber').value = '';
-        document.getElementById('numerator').value = '';
-        document.getElementById('denominator').value = '';
-
-        // Clear feedback
-        document.getElementById('feedback').textContent = '';
-
-        // Generate and display new question
-        generateQuestion();
+$(function () {
+    App.quiz({
+        validateSettings: () => selectedOperations().length ? null : 'Please select at least one operation!',
+        generate: generateQuestion,
+        check: checkAnswer,
+        inputs: '#wholeNumber, #numerator, #denominator',
+        focus: () => $('#allowMixedNumbers').is(':checked') ? '#wholeNumber' : '#numerator'
     });
 });

@@ -1,52 +1,29 @@
-var correctAnswers = 0;
-var totalQuestions = 0;
-var number1 = 0;
-var number2 = 0;
+const ANSWER_LABELS = { less: 'less than (<)', more: 'more than (>)' };
+let numbers = null;
 
-function updateScore() {
-    $("#score").text(`Score: ${correctAnswers}/${totalQuestions}`);
-}
-
-function setQuestion() {
-    number1 = Math.floor(Math.random() * 100);
-    number2;
+function generateQuestion() {
+    const a = App.randInt(0, 99);
+    let b;
     do {
-        number2 = Math.floor(Math.random() * 100);
-    } while (number2 == number1);
-    console.log(`Number 1: ${number1}, Number 2: ${number2}`);
-
-    $("#question").text(`${number1} Is _______ than ${number2}?`);
-
-    $("#newQuestion").hide();
-    $("#feedback").hide();
-    $(".submitAnswer").show();
+        b = App.randInt(0, 99);
+    } while (b === a);
+    numbers = { a, b };
+    $('#question').text(`${a}  ___  ${b}`);
 }
 
-$(document).ready(function () {
-    $(".submitAnswer").click(function () {
-        var userAnswer = $(this).attr("data-answer");
-        $(".submitAnswer").hide();
-        if ((userAnswer == "less" & number1 < number2) || (userAnswer == "more" & number1 > number2)) {
-            $("#feedback").text("Correct 👍").css("color", "green");
-            correctAnswers++;
-            confetti({
-                particleCount: 100,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
-        } else {
-            $("#feedback").text(`Wrong! The correct answer is ${number1 > number2 ? " (More than >) " : " (Less than <) "}.`).css("color", "red");
-        }
-        totalQuestions++;
-        updateScore();
+function checkAnswer(userAnswer) {
+    const correct = numbers.a < numbers.b ? 'less' : 'more';
+    return {
+        correct: userAnswer === correct,
+        question: `${numbers.a} ? ${numbers.b}`,
+        userAnswer: ANSWER_LABELS[userAnswer],
+        correctAnswer: `${numbers.a} is ${ANSWER_LABELS[correct]} ${numbers.b}`
+    };
+}
 
-        $("#newQuestion").show();
-        $("#newQuestion").focus();
-        $("#feedback").show();
+$(function () {
+    const quiz = App.quiz({ generate: generateQuestion, check: checkAnswer });
+    $('.submitAnswer').on('click', function () {
+        quiz.submit($(this).data('answer'));
     });
-
-    $("#newQuestion").click(function () {
-        setQuestion();
-    });
-    setQuestion();
 });
